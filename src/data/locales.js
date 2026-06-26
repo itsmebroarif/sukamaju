@@ -11,7 +11,7 @@ export const locales = {
 
     // Hero
     heroTitle: "WE BUILD RETRO GAMES & DIGITAL SOLUTIONS",
-    heroSubtitle: "Indie Game Developer & Premium IT Solutions Studio based in Indonesia. Bringing pixel art aesthetics and modern tech together.",
+    heroSubtitle: "Indie Game Developer & Premium IT Solutions Studio based in Indonesia. We combine nostalgic 16-bit console aesthetics, custom chiptune audio design, and modern high-performance tech to create immersive digital experiences.",
     heroCTAExplore: "Explore Games",
     heroCTARequest: "Open Collab",
 
@@ -55,8 +55,8 @@ export const locales = {
 
     // About
     aboutTitle: "WHO WE ARE",
-    aboutText1: "KafeinArts is an independent game studio and IT consultant founded on a love for retro gaming and neat software engineering. We combine the charming aesthetics of 16-bit console classics with cutting-edge web and mobile frameworks.",
-    aboutText2: "Whether you need a custom-built multiplayer game or a pixel-perfect SaaS platform, our team of passionate gamers and senior developers can turn your vision into a production-ready product.",
+    aboutText1: "KafeinArts was born from coffee-fueled late nights, a deep love for retro gaming console mechanics, and a commitment to neat, robust software engineering. We bridge the gap between retro pixel-art charm and state-of-the-art web architectures. Rather than just writing code, we compose digital ecosystems: specializing in top-down 16-bit RPGs built on RPG Maker MV, interactive 3D multiplayer levels crafted in Roblox Studio, and lightning-fast enterprise web and mobile applications using modern frameworks like React and Node.js.",
+    aboutText2: "Our approach is mobile-first, performance-centric, and completely client-driven. From creating pixel sprite sheet animations and chiptune synthesizers to deploying automated sync features with GitHub APIs and Google Sheets backends, we design experiences that run flawlessly without unnecessary server bloat. Whether you are an indie creator looking for an Open Collab partnership or an enterprise seeking pixel-perfect IT dashboard solutions, the team at KafeinArts Studio is here to turn your creative concepts into production-grade systems.",
     statGamesReleased: "Games Created",
     statClientsServed: "Happy Clients",
     statLineOfCode: "Lines of Code",
@@ -136,7 +136,7 @@ export const locales = {
 
     // Hero
     heroTitle: "KAMI MEMBUAT RETRO GAME & SOLUSI DIGITAL",
-    heroSubtitle: "Developer Game Indie & Studio Solusi IT Premium berbasis di Indonesia. Memadukan estetika pixel art dengan teknologi modern.",
+    heroSubtitle: "Developer Game Indie & Studio Solusi IT Premium berbasis di Indonesia. Kami memadukan estetika konsol retro 16-bit yang bernostalgia, desain audio chiptune kustom, dan teknologi modern berperforma tinggi untuk menciptakan pengalaman digital yang imersif.",
     heroCTAExplore: "Jelajahi Game",
     heroCTARequest: "Kolaborasi",
 
@@ -180,8 +180,8 @@ export const locales = {
 
     // About
     aboutTitle: "SIAPA KAMI",
-    aboutText1: "KafeinArts adalah studio game independen dan konsultan IT yang didirikan atas kecintaan pada game retro dan rekayasa perangkat lunak yang rapi. Kami menggabungkan estetika menawan dari konsol klasik 16-bit dengan framework web dan mobile mutakhir.",
-    aboutText2: "Apakah Anda memerlukan game multiplayer kustom atau platform SaaS pixel-perfect, tim gamer dan pengembang senior kami yang penuh semangat dapat mengubah visi Anda menjadi produk siap rilis.",
+    aboutText1: "KafeinArts lahir dari malam-malam panjang penuh kafein, kecintaan mendalam pada mekanik game konsol retro, dan komitmen terhadap rekayasa perangkat lunak yang rapi dan kokoh. Kami menjembatani kesenjangan antara pesona pixel-art klasik dan arsitektur web modern yang mutakhir. Kami tidak sekadar menulis kode; kami merancang ekosistem digital: berspesialisasi dalam RPG top-down 16-bit di RPG Maker MV, level multipemain 3D interaktif di Roblox Studio, serta aplikasi web dan mobile perusahaan yang super cepat menggunakan React dan Node.js.",
+    aboutText2: "Pendekatan kami adalah mobile-first, berorientasi performa, dan sepenuhnya digerakkan oleh kebutuhan klien. Dari pembuatan animasi sprite sheet dan synthesizer audio chiptune hingga implementasi sinkronisasi otomatis dengan GitHub API dan backend Google Sheets, kami merancang sistem yang berjalan lancar tanpa beban server yang berat. Baik Anda seorang pencipta indie yang mencari kemitraan Kolaborasi Terbuka atau perusahaan yang membutuhkan solusi dashboard IT pixel-perfect, tim di KafeinArts Studio siap mengubah konsep kreatif Anda menjadi sistem kelas produksi.",
     statGamesReleased: "Game Dibuat",
     statClientsServed: "Klien Puas",
     statLineOfCode: "Baris Kode",
@@ -261,7 +261,7 @@ export const locales = {
 
     // Hero
     heroTitle: "レトロゲームとデジタルソリューションを創る",
-    heroSubtitle: "インドネシアを拠点とするインディーゲーム開発＆プレミアムITソリューションスタジオ。ドット絵の美学とモダンなテクノロジーの融合。",
+    heroSubtitle: "インドネシアを拠点とするインディーゲーム開発＆プレミアムITソリューションスタジオ。ノスタルジックな16ビットレトロゲームの美学、カスタムチップチューンサウンド、および高性能な最新技術を融合した没入型デジタル体験をお届けします。",
     heroCTAExplore: "ゲームを見る",
     heroCTARequest: "コラボ募集",
 
@@ -305,8 +305,8 @@ export const locales = {
 
     // About
     aboutTitle: "会社情報",
-    aboutText1: "KafeinArtsは、レトロゲームへの愛 and 端正なソフトウェアエンジニアリングをベースに設立されたインディーゲーム開発・ITコンサルティングスタジオです。16ビットのクラシックゲームの魅力的なビジュアルと、最先端のウェブ・モバイルフレームワークを融合させています。",
-    aboutText2: "カスタムマルチプレイヤーゲームからドット絵デザイン of SaaSプラットフォームまで、情熱的なゲーム開発者とシニアエンジニアからなるチームが、あなたのビジョンをプロダクション対応の製品へと形にします。",
+    aboutText1: "KafeinArtsは、カフェインに満ちた深夜の開発、レトロコンソールゲームへの深い愛、端正で堅牢なソフトウェアエンジニアリングへのこだわりから誕生しました。私たちは、クラシックなドット絵（ピクセルアート）の魅力と、最先端のウェブアーキテクチャの架け橋となります。単にコードを書くのではなく、RPGツクールMVによる本格的な16ビットのトップダウンRPG開発、Roblox Studioでのインタラクティブな3Dマルチプレイヤー世界の構築、ReactやNode.jsを用いた非常に高速な企業向けウェブ・モバイルアプリなど、デジタルエコシステム全体を設計します。",
+    aboutText2: "私たちの開発プロセスはモバイルファーストで、パフォーマンスを重視し、完全にクライアントのビジョンに基づいています。スプライトシートのアニメーション制作やチップチューンシンセサイザーの設計から、GitHub APIやGoogleスプレッドシートのバックエンドとの自動同期の実装まで、不要なサーバー負荷をかけずに完璧に動作するシステムを開発します。オープンコラボでの共同開発を求めるインディー開発者様から、ピクセルパーフェクトなITダッシュボードを求める企業様まで、KafeinArts Studioチームがあなたのアイデアを商用品質のプロダクトへと形にします。",
     statGamesReleased: "制作ゲーム数",
     statClientsServed: "満足した顧客",
     statLineOfCode: "コード行数",

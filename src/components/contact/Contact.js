@@ -165,7 +165,7 @@ export default function Contact() {
                 </a>
 
                 <a
-                  href="https://instagram.com/eexxvvn"
+                  href="https://www.instagram.com/kafeinarts.studio/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 p-3 border-2 border-slate-950 dark:border-slate-100 hover:bg-purple-50 dark:hover:bg-purple-950/20 transition-colors duration-150 group font-press text-[9px] uppercase"
@@ -179,7 +179,7 @@ export default function Contact() {
                   </div>
                   <div className="text-left">
                     <span className="block font-bold">Instagram Feed</span>
-                    <span className="text-[7px] text-slate-400 font-inter font-normal lowercase">@eexxvvn</span>
+                    <span className="text-[7px] text-slate-400 font-inter font-normal lowercase">@kafeinarts.studio</span>
                   </div>
                 </a>
 

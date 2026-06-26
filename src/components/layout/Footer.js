@@ -31,7 +31,7 @@ export default function Footer() {
           {/* Social Links */}
           <div className="flex items-center gap-3">
             <a
-              href="https://instagram.com/eexxvvn"
+              href="https://www.instagram.com/kafeinarts.studio/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 border-2 border-slate-100 bg-slate-900 text-slate-100 hover:bg-purple-600 hover:text-white shadow-retro-sm transition-colors duration-150"

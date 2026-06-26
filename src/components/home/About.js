@@ -65,6 +65,34 @@ export default function About() {
 
         </div>
 
+        {/* Founder Card */}
+        <div className="mt-8 p-6 border-4 border-slate-950 dark:border-slate-100 bg-white dark:bg-slate-950 shadow-retro flex flex-col md:flex-row items-center gap-6">
+          {/* Retro futuristic pixel-art style frame (Blue, Red, Green) */}
+          <div className="relative p-1 bg-slate-950 dark:bg-slate-100 border-4 border-slate-950 dark:border-slate-100 shadow-[4px_4px_0_#ef4444,-4px_-4px_0_#3b82f6,0_0_0_4px_#22c55e] flex-shrink-0 mx-2 my-2">
+            <img 
+              src="https://miro.medium.com/v2/resize:fit:2400/1*99hHL9XJ7EzQeC6RB5_Qiw.jpeg" 
+              alt="Arif Alexander" 
+              className="w-32 h-32 md:w-36 md:h-36 object-cover bg-slate-800 block"
+            />
+          </div>
+          <div className="text-left flex-1">
+            <span className="font-press text-[9px] uppercase text-purple-600 dark:text-cyan-400 block mb-1">
+              Founder & Principal Developer
+            </span>
+            <h3 className="font-press text-sm uppercase text-slate-900 dark:text-slate-100 mb-2">
+              Arif Alexander
+            </h3>
+            <p className="font-inter text-xs md:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              {lang === 'id' ? 
+                'KafeinArts Studio didirikan dan dimiliki sepenuhnya oleh Arif Alexander. Sebagai pengembang utama dan arsitek teknis, beliau memimpin visi kreatif untuk menghadirkan game retro 16-bit berkelas dunia dan arsitektur web modern yang andal dan berdaya saing tinggi.' : 
+                lang === 'jp' ?
+                'KafeinArts Studioはアリフ・アレクサンダーによって設立され、完全所有されています。リード開発者およびテクニカルアーキテクトとして、彼は世界クラスの16ビットレトロゲームと信頼性の高い最新のウェブシステムを提供する創造的なビジョンを指揮しています。' :
+                'KafeinArts Studio was founded and is fully owned by Arif Alexander. Serving as the principal developer and technical architect, he directs the creative vision of delivering world-class 16-bit retro games and robust modern web architectures.'
+              }
+            </p>
+          </div>
+        </div>
+
       </div>
     </section>
   );
