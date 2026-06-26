@@ -62,10 +62,10 @@ export default function About() {
 
         {/* Content Layout: Text details */}
         <div className="flex flex-col gap-6 text-left max-w-4xl mx-auto">
-          <p className="text-[9px] md:text-[10px] text-slate-700 dark:text-slate-355 leading-relaxed text-justify">
+          <p className="text-xs md:text-sm text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
             {t.aboutText1}
           </p>
-          <p className="text-[9px] md:text-[10px] text-slate-750 dark:text-slate-360 leading-relaxed text-justify">
+          <p className="text-xs md:text-sm text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
             {t.aboutText2}
           </p>
         </div>
@@ -87,7 +87,7 @@ export default function About() {
             <h3 className="font-press text-sm uppercase text-slate-900 dark:text-slate-100 mb-2">
               Arif Alexander
             </h3>
-            <p className="text-[9px] md:text-[10px] text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
+            <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
               {lang === 'id' ? 
                 'KafeinArts Studio didirikan dan dimiliki sepenuhnya oleh Arif Alexander. Sebagai pengembang utama dan arsitek teknis, beliau memimpin visi kreatif untuk menghadirkan game retro 16-bit berkelas dunia dan arsitektur web modern yang andal dan berdaya saing tinggi.' : 
                 lang === 'jp' ?

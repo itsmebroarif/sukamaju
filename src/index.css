@@ -15,21 +15,9 @@
   font-family: 'Determination Mono', monospace !important;
 }
 
-/* Force retro 8-bit font globally */
-* {
-  font-family: "Press Start 2P", monospace, sans-serif !important;
-}
-
-/* Override and disable text-muted gray/slate colors for sharp legibility */
-.text-slate-400, .text-slate-500, .text-slate-600, .text-slate-350, 
-.text-slate-300, .text-slate-450, .text-slate-550, .text-slate-650, 
-.text-slate-700, .text-gray-400, .text-gray-500, .text-gray-650 {
-  color: inherit !important;
-}
-
 @layer base {
   body {
-    @apply bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-press transition-colors duration-200;
+    @apply bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-inter transition-colors duration-200;
   }
 }
 
@@ -83,17 +71,13 @@ body, p, li, h1, h2, h3, h4, h5, h6, label, span, button, input, textarea, selec
   transition: color 0.3s ease, text-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Retro text outline in dark mode (white text with solid black outline) */
-.dark body,
-.dark p,
-.dark li,
+/* Retro text outline in dark mode (white text with solid black outline for headings) */
 .dark h1,
 .dark h2,
 .dark h3,
 .dark h4,
 .dark h5,
-.dark h6,
-.dark label {
+.dark h6 {
   color: #ffffff;
   text-shadow: 
     -1px -1px 0 #000000,  
@@ -106,17 +90,13 @@ body, p, li, h1, h2, h3, h4, h5, h6, label, span, button, input, textarea, selec
      0px  1px 0 #000000;
 }
 
-/* Retro text outline in light mode - Inverse (black text with solid white outline) */
-html:not(.dark) body,
-html:not(.dark) p,
-html:not(.dark) li,
+/* Retro text outline in light mode - Inverse (black text with solid white outline for headings) */
 html:not(.dark) h1,
 html:not(.dark) h2,
 html:not(.dark) h3,
 html:not(.dark) h4,
 html:not(.dark) h5,
-html:not(.dark) h6,
-html:not(.dark) label {
+html:not(.dark) h6 {
   color: #000000;
   text-shadow: 
     -1px -1px 0 #ffffff,  

@@ -67,7 +67,7 @@ export default function Navbar() {
             <div className="w-8 h-8 bg-purple-600 border-2 border-slate-950 dark:border-slate-100 flex items-center justify-center font-undertale text-white text-base shadow-retro-sm group-hover:bg-purple-500 transition-colors">
               K
             </div>
-            <span className="font-undertale text-base md:text-lg tracking-widest bg-gradient-to-r from-purple-600 to-cyan-500 bg-clip-text text-transparent dark:from-purple-400 dark:to-cyan-400 font-bold transition-all duration-200">
+            <span className="font-undertale text-base md:text-lg tracking-widest text-slate-950 dark:text-white font-bold transition-all duration-200">
               KAFEINARTS
             </span>
           </div>

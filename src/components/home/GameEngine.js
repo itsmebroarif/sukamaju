@@ -56,7 +56,7 @@ export default function GameEngine() {
                   <div className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-slate-50 dark:bg-slate-900 shadow-retro-sm">
                     {feat.icon}
                   </div>
-                  <span className="font-press text-[8px] sm:text-[9px] uppercase tracking-wider text-slate-800 dark:text-slate-205 leading-relaxed">
+                  <span className="font-inter text-xs md:text-sm font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
                     {feat.label}
                   </span>
                 </div>
