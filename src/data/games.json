@@ -18,5 +18,25 @@
     "image": "/images/games/Cover.png",
     "featured": true,
     "playUrl": "https://www.roblox.com/share?code=a53ff49614c7834a99038e19bad7ef84&type=ExperienceDetails&stamp=1782502607033"
+  },
+  {
+    "id": "game-1782504191312",
+    "title": {
+      "en": "Chill Place",
+      "id": "Ruang Santuy ",
+      "jp": "チル・プレイス"
+    },
+    "description": {
+      "en": "Step into a calm and aesthetic dreamscape. Explore peaceful 16-bit retro spaces, enjoy relaxing chiptune music, and find absolute serenity. The perfect place to escape reality and unwind.",
+      "id": "Masuki dunia mimpi yang tenang dan estetik. Jelajahi ruang retro 16-bit yang damai, nikmati alunan musik chiptune, dan temukan ketenangan tanpa batas. Tempat sempurna untuk rehat sejenak dari realitas.",
+      "jp": "静かでエステティックな夢の空間へ。平和な16ビットのレトロ世界を探索し、心地よいチップチューンを聴きながら、最高の癒やしを見つけましょう。現実を忘れてリラックスするのに最適な場所です。"
+    },
+    "price": 0,
+    "genre": "Social ",
+    "rating": 5,
+    "releaseYear": 2026,
+    "image": "/images/games/Nongkrong Dibulan.png",
+    "featured": false,
+    "playUrl": "https://www.roblox.com/share?code=7f40de8bbcbea745a152b531cc50d8fb&type=ExperienceDetails&stamp=1782504138379"
   }
 ]
