@@ -66,14 +66,6 @@ export async function fetchCollaborators() {
               phone: '6285817048266',
               idea: 'A multiplayer 16-bit RPG about coffee shop management using Roblox Studio.',
               timestamp: new Date(Date.now() - 3600000 * 2).toISOString()
-            },
-            {
-              id: 'mock-2',
-              name: 'Taro Tanaka',
-              email: 'taro@tanaka.jp',
-              phone: '819012345678',
-              idea: 'Retro adventure game built on RPG Maker MV showcasing Japanese folklore.',
-              timestamp: new Date(Date.now() - 3600000 * 24).toISOString()
             }
           ];
           localStorage.setItem('kafeinarts-mock-collabs', JSON.stringify(defaultMocks));
