@@ -38,5 +38,25 @@
     "image": "/images/games/Nongkrong Dibulan.png",
     "featured": false,
     "playUrl": "https://www.roblox.com/share?code=7f40de8bbcbea745a152b531cc50d8fb&type=ExperienceDetails&stamp=1782504138379"
+  },
+  {
+    "id": "game-1782505140128",
+    "title": {
+      "en": "Browseasy ",
+      "id": "Browseasy ",
+      "jp": "Browseasy "
+    },
+    "description": {
+      "en": "Browseasy is an action-packed zombie shooter set in a dark and mysterious world. The game features a unique visual style inspired by green digital code rain (like cmatrix or The Matrix effect). Survive the darkness, blast away zombies, and experience the thrill of fighting inside a cool, simulated code universe!",
+      "id": "Browseasy adalah game aksi tembak-tembakan zombie yang seru dengan atmosfer dunia yang gelap dan misterius. Uniknya, game ini memadukan estetika visual ala efek hujan kode digital hijau (seperti efek cmatrix atau film The Matrix). Bertahan hidup di tengah kegelapan, basmi para zombie, dan rasakan sensasi bertempur di dalam dunia simulasi kode yang keren!",
+      "jp": "Browseasy（ブラウジージー）は、ダークでミステリアスな世界を舞台にした爽快なゾンビシューティングゲームです。映画『マトリックス』やcmatrixのような、緑のデジタルコードが降り注ぐ独特なビジュアルエフェクトが特徴です。暗闇の中で生き残り、ゾンビを撃退しながら、クールなシミュレーションコードの世界での戦闘を体感しましょう！"
+    },
+    "price": 0,
+    "genre": "Horror",
+    "rating": 4.8,
+    "releaseYear": 2026,
+    "image": "/images/games/browseasy.jpeg",
+    "featured": true,
+    "playUrl": "https://browseasy.vercel.app/"
   }
 ]
