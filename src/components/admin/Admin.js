@@ -33,6 +33,7 @@ export default function Admin() {
   const [pinError, setPinError] = useState('');
   const [isSyncing, setIsSyncing] = useState(false);
   const [loadingCollabs, setLoadingCollabs] = useState(false);
+  const [tokenRevealed, setTokenRevealed] = useState(false);
 
   // Form states for new game
   const [newGame, setNewGame] = useState({
@@ -129,6 +130,48 @@ export default function Admin() {
       color: document.documentElement.classList.contains('dark') ? '#f1f5f9' : '#0f172a',
       customClass: {
         popup: 'border-2 border-slate-950 font-press text-[9px] uppercase rounded-none'
+      }
+    });
+  };
+
+  const handleRevealToken = () => {
+    playClick();
+    Swal.fire({
+      title: 'SECURITY CHALLENGE',
+      text: 'Enter Secure PIN to reveal GitHub Personal Access Token:',
+      input: 'password',
+      inputPlaceholder: 'ENTER PIN',
+      showCancelButton: true,
+      confirmButtonText: 'CONFIRM',
+      cancelButtonText: 'CANCEL',
+      confirmButtonColor: '#9333ea',
+      cancelButtonColor: '#e11d48',
+      background: document.documentElement.classList.contains('dark') ? '#0f172a' : '#ffffff',
+      color: document.documentElement.classList.contains('dark') ? '#f1f5f9' : '#0f172a',
+      customClass: {
+        popup: 'border-4 border-slate-950 font-inter text-sm rounded-none',
+        input: 'border-2 border-slate-950 dark:border-slate-100 bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-mono text-center rounded-none',
+        confirmButton: 'font-press text-[9px] uppercase px-4 py-2 bg-purple-600 border-2 border-slate-950 shadow-retro-sm rounded-none',
+        cancelButton: 'font-press text-[9px] uppercase px-4 py-2 bg-rose-600 border-2 border-slate-950 shadow-retro-sm rounded-none'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (result.value === '181203') {
+          playSuccess();
+          setTokenRevealed(true);
+        } else {
+          playFail();
+          Swal.fire({
+            icon: 'error',
+            title: 'ACCESS DENIED',
+            text: 'INVALID PIN CODE.',
+            background: document.documentElement.classList.contains('dark') ? '#0f172a' : '#ffffff',
+            color: document.documentElement.classList.contains('dark') ? '#f1f5f9' : '#0f172a',
+            customClass: {
+              popup: 'border-4 border-slate-950 font-inter text-sm rounded-none',
+            }
+          });
+        }
       }
     });
   };
@@ -934,15 +977,27 @@ export default function Admin() {
                     />
                   </div>
 
-                  <RetroInput
-                    id="token"
-                    type="password"
-                    label="GitHub Personal Access Token (PAT)"
-                    placeholder="ghp_************************************"
-                    value={gitConfig.token}
-                    onChange={(e) => setGitConfig({ ...gitConfig, token: e.target.value })}
-                    required
-                  />
+                  <div className="relative">
+                    <RetroInput
+                      id="token"
+                      type={tokenRevealed ? "text" : "password"}
+                      label="GitHub Personal Access Token (PAT)"
+                      placeholder="ghp_************************************"
+                      value={gitConfig.token}
+                      onChange={(e) => setGitConfig({ ...gitConfig, token: e.target.value })}
+                      required
+                      disabled={!tokenRevealed}
+                    />
+                    {!tokenRevealed && (
+                      <button
+                        type="button"
+                        onClick={handleRevealToken}
+                        className="absolute right-2 bottom-1.5 px-3 py-1 border-2 border-slate-950 dark:border-slate-100 bg-purple-600 hover:bg-purple-500 text-white font-press text-[7px] uppercase shadow-retro-sm"
+                      >
+                        REVEAL
+                      </button>
+                    )}
+                  </div>
 
                   <div className="mt-4 flex justify-end">
                     <RetroButton type="submit" variant="purple">

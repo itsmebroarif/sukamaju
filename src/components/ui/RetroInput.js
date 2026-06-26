@@ -12,12 +12,15 @@ export default function RetroInput({
   error = '',
   options = [], // For select input
   rows = 4, // For textarea
+  disabled = false,
   className = ''
 }) {
   const inputClass = cn(
-    "w-full px-4 py-2 text-sm bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100",
-    "border-2 border-slate-950 dark:border-slate-100 shadow-retro-sm focus:outline-none focus:bg-slate-50 dark:focus:bg-slate-900",
-    "font-inter transition-all duration-150",
+    "w-full px-4 py-2 text-sm text-slate-900 dark:text-slate-100 transition-all duration-150 font-inter",
+    "border-2 border-slate-950 dark:border-slate-100 shadow-retro-sm focus:outline-none",
+    disabled 
+      ? "bg-slate-100 dark:bg-slate-900 opacity-60 cursor-not-allowed" 
+      : "bg-white dark:bg-slate-950 focus:bg-slate-50 dark:focus:bg-slate-900",
     error ? "border-rose-500 dark:border-rose-400" : ""
   );
 
@@ -37,6 +40,7 @@ export default function RetroInput({
           value={value}
           onChange={onChange}
           required={required}
+          disabled={disabled}
           className={inputClass}
         />
       ) : type === 'select' ? (
@@ -45,6 +49,7 @@ export default function RetroInput({
           value={value}
           onChange={onChange}
           required={required}
+          disabled={disabled}
           className={cn(inputClass, "cursor-pointer appearance-none bg-no-repeat bg-right pr-8")}
           style={{
             backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M7 9l3 3 3-3' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`
@@ -64,6 +69,7 @@ export default function RetroInput({
           value={value}
           onChange={onChange}
           required={required}
+          disabled={disabled}
           className={inputClass}
         />
       )}
