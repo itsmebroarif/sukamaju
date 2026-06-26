@@ -57,12 +57,23 @@ export default function Admin() {
 
   // Github form configs
   const [gitConfig, setGitConfig] = useState({
-    owner: githubOwner,
-    repo: githubRepo,
-    branch: githubBranch,
-    path: githubPath,
-    token: githubToken
+    owner: githubOwner || 'itsmebroarif',
+    repo: githubRepo || 'kafeinarts-studio',
+    branch: githubBranch || 'main',
+    path: githubPath || 'src/data/games.json',
+    token: githubToken || ''
   });
+
+  // Sync state with store once store values load
+  useEffect(() => {
+    setGitConfig({
+      owner: githubOwner || 'itsmebroarif',
+      repo: githubRepo || 'kafeinarts-studio',
+      branch: githubBranch || 'main',
+      path: githubPath || 'src/data/games.json',
+      token: githubToken || ''
+    });
+  }, [githubOwner, githubRepo, githubBranch, githubPath, githubToken]);
 
   // Load collaborators from Sheets API on mount / unlock
   useEffect(() => {
