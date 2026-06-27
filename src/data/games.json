@@ -57,6 +57,8 @@
     "releaseYear": 2026,
     "image": "/images/games/browseasy.jpeg",
     "featured": true,
-    "playUrl": "https://browseasy.vercel.app/"
+    "playUrl": "https://browseasy.vercel.app/",
+    "videoUrl": "/videos/games/BROWSEASY YUKI.mp4",
+    "platform": ""
   }
 ]
