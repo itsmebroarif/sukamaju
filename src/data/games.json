@@ -60,5 +60,27 @@
     "playUrl": "https://browseasy.vercel.app/",
     "videoUrl": "/videos/games/BROWSEASY YUKI.mp4",
     "platform": ""
+  },
+  {
+    "id": "game-1782571964895",
+    "title": {
+      "en": "Yuki's World",
+      "id": "Dunia Yuki",
+      "jp": "ユキの世界"
+    },
+    "description": {
+      "en": "Step into a calm and aesthetic pink-toned 16-bit dream world. Explore a peaceful retro space while enjoying the soothing sounds of chiptune music, discovering boundless tranquility. Here, you will be accompanied by adorable kawaii NPCs, surrounded by endless sweet treats, and magically, you will never go hungry! The perfect escape to take a brief, relaxing break from reality.",
+      "id": "Masuki dunia mimpi polygon manis bernuansa merah muda yang tenang dan estetik. Jelajahi ruang retro yang damai sambil menikmati alunan musik chiptune yang menenangkan hati, dan temukan ketenangan tanpa batas. Di sini, kamu akan ditemani oleh NPC kawaii yang menggemaskan, dikelilingi oleh camilan manis yang melimpah ruah, dan ajaibnya, kamu tidak akan pernah merasa lapar! Sebuah tempat pelarian yang sempurna untuk rehat sejenak dari penatnya realitas.",
+      "jp": "穏やかで美しい、ピンク色に染まった16ビットの夢の世界へ足を踏み入れてみませんか。心地よいチップチューン音楽を楽しみながら、平和なレトロ空間を探索し、無限の安らぎを見つけてください。ここでは、可愛らしいNPCたちがあなたに寄り添い、甘いお菓子に囲まれ、しかも絶対にお腹が空くことはありません！現実から少し離れて一休みするのに、これ以上ない完璧な場所です。"
+    },
+    "price": 0,
+    "genre": "Social ",
+    "rating": 5,
+    "releaseYear": 2026,
+    "image": "/images/games/Screenshot (78).png",
+    "featured": false,
+    "playUrl": "https://itsmebroarif.github.io/duniayuki/",
+    "videoUrl": "",
+    "platform": "PC"
   }
 ]
