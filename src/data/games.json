@@ -77,10 +77,11 @@
     "genre": "Social ",
     "rating": 5,
     "releaseYear": 2026,
-    "image": "/images/games/Screenshot (78).png",
+    "image": "/images/games/Screenshot (79).png",
     "featured": false,
     "playUrl": "https://itsmebroarif.github.io/duniayuki/",
     "videoUrl": "",
-    "platform": "PC"
+    "platform": "PC",
+    "type": "game"
   }
 ]
