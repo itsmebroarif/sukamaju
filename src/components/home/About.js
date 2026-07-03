@@ -86,13 +86,13 @@ export default function About() {
               Arif Alexander
             </h3>
             <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed text-justify">
-              {lang === 'id' ? 
-                'Sukamaju Hub didirikan dan dimiliki sepenuhnya oleh Arif Alexander. Sebagai pengembang utama dan arsitek teknis, beliau memimpin visi kreatif untuk menghadirkan arsitektur web modern yang andal, produk SaaS berdaya saing tinggi, dan game interaktif yang edukatif.' : 
-                lang === 'jp' ?
-                'Sukamaju Hubはアリフ・アレクサンダーによって設立され、完全所有されています。リード開発者およびテクニカルアーキテクトとして、彼は信頼性の高い最新のウェブシステムやSaaS製品、地域活動を支援するデジタル体験の創造を指揮しています。' :
-                'Sukamaju Hub was founded and is fully owned by Arif Alexander. Serving as the principal developer and technical architect, he directs the creative vision of delivering world-class modern web architectures, SaaS platforms, and interactive digital systems.'
-              }
-            </p>
+            {lang === 'id' ? 
+              'Sukamaju Hub merupakan layanan perangkat lunak yang dikembangkan oleh Arif Alexander untuk membantu digitalisasi organisasi Karang Taruna dan RT/RW. Sebagai Founder dan Technical Architect, beliau memimpin pengembangan teknologi dengan fokus pada aplikasi web modern, solusi Software as a Service (SaaS), serta sistem yang aman, andal, dan mudah digunakan.' : 
+              lang === 'jp' ?
+              'Sukamaju Hubは、アリフ・アレクサンダーによって開発されたソフトウェアサービスであり、青年団（Karang Taruna）や地域自治組織（RT/RW）のデジタル化を支援することを目的としています。Founder兼Technical Architectとして、最新のWebアプリケーション、SaaSソリューション、安全で信頼性の高いシステムの開発を指揮しています。' :
+              'Sukamaju Hub is a software service developed by Arif Alexander to support the digital transformation of Karang Taruna and RT/RW community organizations. As the Founder and Technical Architect, he leads the development of modern web applications, Software as a Service (SaaS) solutions, and secure, reliable, and user-friendly digital systems.'
+            }
+          </p>
           </div>
         </div>
 
