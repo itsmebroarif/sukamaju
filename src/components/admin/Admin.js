@@ -52,7 +52,8 @@ export default function Admin() {
     featured: false,
     playUrl: '',
     videoUrl: '',
-    platform: ''
+    platform: '',
+    type: 'game'
   });
 
   const [editingGameId, setEditingGameId] = useState(null);
@@ -300,6 +301,7 @@ export default function Admin() {
             playUrl: newGame.playUrl,
             videoUrl: newGame.videoUrl || '',
             platform: platformString,
+            type: newGame.type || 'game',
             // If new image/video was uploaded, preserve for upload step
             ...(imageFile ? { _file: imageFile, _fileName: imageFileName } : {}),
             ...(videoFile ? { _videoFile: videoFile, _videoFileName: videoFileName } : {})
@@ -313,7 +315,7 @@ export default function Admin() {
       playSuccess();
       Swal.fire({
         title: 'Success',
-        text: 'Game record updated locally. Don\'t forget to click "COMMIT & PUSH TO GITHUB" to save changes permanently.',
+        text: 'Record updated locally. Don\'t forget to click "COMMIT & PUSH TO GITHUB" to save changes permanently.',
         icon: 'success',
         confirmButtonColor: '#9333ea',
       });
@@ -341,6 +343,7 @@ export default function Admin() {
         playUrl: newGame.playUrl,
         videoUrl: newGame.videoUrl || '',
         platform: platformString,
+        type: newGame.type || 'game',
         _file: imageFile,
         _fileName: imageFileName,
         _videoFile: videoFile,
@@ -368,7 +371,8 @@ export default function Admin() {
       featured: false,
       playUrl: '',
       videoUrl: '',
-      platform: ''
+      platform: '',
+      type: 'game'
     });
     setImageFile(null);
     setImageFileName('');
@@ -402,7 +406,8 @@ export default function Admin() {
       featured: game.featured || false,
       playUrl: game.playUrl || '',
       videoUrl: game.videoUrl || '',
-      platform: game.platform || ''
+      platform: game.platform || '',
+      type: game.type || 'game'
     });
 
     const platforms = game.platform || '';
@@ -444,7 +449,8 @@ export default function Admin() {
       featured: false,
       playUrl: '',
       videoUrl: '',
-      platform: ''
+      platform: '',
+      type: 'game'
     });
     setImageFile(null);
     setImageFileName('');
@@ -972,7 +978,7 @@ export default function Admin() {
                     </div>
 
                     {/* Parameters */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
                       <RetroInput
                         id="genre"
                         label="Genre Category"
@@ -996,12 +1002,34 @@ export default function Admin() {
 
                       <div className="flex flex-col gap-1.5 justify-center">
                         <label className="font-press text-[9px] uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                          Item Type
+                        </label>
+                        <div className="flex border-2 border-slate-950 dark:border-slate-100 overflow-hidden shadow-retro-sm">
+                          <button
+                            type="button"
+                            onClick={() => { playClick(); setNewGame({ ...newGame, type: 'game' }); }}
+                            className={`flex-1 px-2 py-2.5 font-press text-[7px] uppercase select-none ${newGame.type !== 'app' ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200'}`}
+                          >
+                            GAME
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => { playClick(); setNewGame({ ...newGame, type: 'app' }); }}
+                            className={`flex-1 px-2 py-2.5 font-press text-[7px] uppercase select-none border-l-2 border-slate-950 dark:border-slate-100 ${newGame.type === 'app' ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200'}`}
+                          >
+                            APP
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col gap-1.5 justify-center">
+                        <label className="font-press text-[9px] uppercase tracking-wider text-slate-700 dark:text-slate-300">
                           Featured Status
                         </label>
                         <button
                           type="button"
                           onClick={() => setNewGame({ ...newGame, featured: !newGame.featured })}
-                          className={`px-3 py-2 border-2 border-slate-950 dark:border-slate-100 font-press text-[8px] uppercase select-none ${newGame.featured ? 'bg-purple-600 text-white shadow-retro-sm' : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-2'
+                          className={`px-3 py-2.5 border-2 border-slate-955 border-slate-950 dark:border-slate-100 font-press text-[8px] uppercase select-none ${newGame.featured ? 'bg-purple-600 text-white shadow-retro-sm' : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-2'
                             }`}
                         >
                           {newGame.featured ? 'FEATURED' : 'REGULAR'}
@@ -1109,51 +1137,114 @@ export default function Admin() {
                 {/* List: Existing Games */}
                 <RetroCard variant="default" title="CURRENT_GAMES_RECORD">
                   <div className="flex flex-col gap-3">
-                    {games.map((game) => {
-                      const title = game.title[lang] || game.title['en'];
-                      return (
-                        <div
-                          key={game.id}
-                          className="flex items-center justify-between p-3 border-2 border-slate-955 border-slate-950 dark:border-slate-100 bg-white dark:bg-slate-950 shadow-retro-sm"
-                        >
-                          <div className="flex items-center gap-3 text-left">
-                            <img
-                              src={game.image}
-                              alt={title}
-                              className="w-10 h-10 object-cover border-2 border-slate-950 dark:border-slate-100 bg-slate-800"
-                            />
-                            <div>
-                              <h4 className="font-press text-[9px] uppercase text-slate-905 text-slate-900 dark:text-slate-100">
-                                {title} {game.featured && <span className="text-[7px] text-purple-600 bg-purple-100 dark:bg-purple-900/40 px-1 border border-purple-650 ml-1">featured</span>}
-                              </h4>
-                              <span className="font-mono text-[9px] text-slate-500 block">
-                                Genre: {game.genre} | Year: {game.releaseYear} | Path: {game.image} | URL: <a href={game.playUrl} target="_blank" rel="noopener noreferrer" className="underline text-purple-600 dark:text-cyan-400">{game.playUrl || 'None'}</a>
-                              </span>
+                    {games.filter(g => g.type !== 'app').length === 0 ? (
+                      <div className="py-6 text-center font-press text-[9px] uppercase text-slate-400">
+                        NO GAMES LOADED IN ARCHIVE
+                      </div>
+                    ) : (
+                      games.filter(g => g.type !== 'app').map((game) => {
+                        const title = game.title[lang] || game.title['en'];
+                        return (
+                          <div
+                            key={game.id}
+                            className="flex items-center justify-between p-3 border-2 border-slate-950 dark:border-slate-100 bg-white dark:bg-slate-955 bg-slate-950 shadow-retro-sm"
+                          >
+                            <div className="flex items-center gap-3 text-left">
+                              <img
+                                src={game.image}
+                                alt={title}
+                                className="w-10 h-10 object-cover border-2 border-slate-950 dark:border-slate-100 bg-slate-800"
+                              />
+                              <div>
+                                <h4 className="font-press text-[9px] uppercase text-slate-900 dark:text-slate-100">
+                                  {title} {game.featured && <span className="text-[7px] text-purple-600 bg-purple-100 dark:bg-purple-900/40 px-1 border border-purple-650 ml-1">featured</span>}
+                                </h4>
+                                <span className="font-mono text-[9px] text-slate-500 block">
+                                  Genre: {game.genre} | Year: {game.releaseYear} | Path: {game.image} | URL: <a href={game.playUrl} target="_blank" rel="noopener noreferrer" className="underline text-purple-600 dark:text-cyan-400">{game.playUrl || 'None'}</a>
+                                </span>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              <button
+                                type="button"
+                                onClick={() => handleEditGame(game)}
+                                className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-amber-50 dark:bg-amber-950/20 text-amber-600 hover:bg-amber-500 hover:text-white shadow-retro-sm transition-colors duration-150"
+                                aria-label="Edit Game"
+                              >
+                                <Edit2 className="w-4 h-4" />
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteGame(game.id)}
+                                className="p-2 border-2 border-slate-955 border-slate-950 dark:border-slate-100 bg-rose-50 dark:bg-rose-950/20 text-rose-500 hover:bg-rose-500 hover:text-white shadow-retro-sm transition-colors duration-150"
+                                aria-label="Delete Game"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
                             </div>
                           </div>
+                        );
+                      })
+                    )}
+                  </div>
+                </RetroCard>
 
-                          <div className="flex items-center gap-2">
-                            <button
-                              type="button"
-                              onClick={() => handleEditGame(game)}
-                              className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-amber-50 dark:bg-amber-950/20 text-amber-600 hover:bg-amber-500 hover:text-white shadow-retro-sm transition-colors duration-150"
-                              aria-label="Edit Game"
-                            >
-                              <Edit2 className="w-4 h-4" />
-                            </button>
+                {/* List: Existing Applications */}
+                <RetroCard variant="default" title="CURRENT_APPLICATIONS_RECORD">
+                  <div className="flex flex-col gap-3">
+                    {games.filter(g => g.type === 'app').length === 0 ? (
+                      <div className="py-6 text-center font-press text-[9px] uppercase text-slate-400">
+                        NO APPLICATIONS LOADED IN ARCHIVE
+                      </div>
+                    ) : (
+                      games.filter(g => g.type === 'app').map((game) => {
+                        const title = game.title[lang] || game.title['en'];
+                        return (
+                          <div
+                            key={game.id}
+                            className="flex items-center justify-between p-3 border-2 border-slate-950 dark:border-slate-100 bg-white dark:bg-slate-950 shadow-retro-sm"
+                          >
+                            <div className="flex items-center gap-3 text-left">
+                              <img
+                                src={game.image}
+                                alt={title}
+                                className="w-10 h-10 object-cover border-2 border-slate-950 dark:border-slate-100 bg-slate-800"
+                              />
+                              <div>
+                                <h4 className="font-press text-[9px] uppercase text-slate-900 dark:text-slate-100">
+                                  {title} {game.featured && <span className="text-[7px] text-purple-600 bg-purple-100 dark:bg-purple-900/40 px-1 border border-purple-650 ml-1">featured</span>}
+                                </h4>
+                                <span className="font-mono text-[9px] text-slate-500 block">
+                                  Genre: {game.genre} | Year: {game.releaseYear} | Path: {game.image} | URL: <a href={game.playUrl} target="_blank" rel="noopener noreferrer" className="underline text-purple-600 dark:text-cyan-400">{game.playUrl || 'None'}</a>
+                                </span>
+                              </div>
+                            </div>
 
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteGame(game.id)}
-                              className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-rose-50 dark:bg-rose-950/20 text-rose-500 hover:bg-rose-500 hover:text-white shadow-retro-sm transition-colors duration-150"
-                              aria-label="Delete Game"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
+                            <div className="flex items-center gap-2">
+                              <button
+                                type="button"
+                                onClick={() => handleEditGame(game)}
+                                className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-amber-50 dark:bg-amber-950/20 text-amber-600 hover:bg-amber-500 hover:text-white shadow-retro-sm transition-colors duration-150"
+                                aria-label="Edit Application"
+                              >
+                                <Edit2 className="w-4 h-4" />
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteGame(game.id)}
+                                className="p-2 border-2 border-slate-955 border-slate-950 dark:border-slate-100 bg-rose-50 dark:bg-rose-950/20 text-rose-500 hover:bg-rose-500 hover:text-white shadow-retro-sm transition-colors duration-150"
+                                aria-label="Delete Application"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })
+                    )}
                   </div>
                 </RetroCard>
 

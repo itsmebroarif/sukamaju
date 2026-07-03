@@ -74,8 +74,12 @@ export default function FeaturedGames() {
                     className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                   />
                   {/* Genre Badge */}
-                  <div className="absolute top-2 left-2 px-2.5 py-1 border-2 border-slate-950 dark:border-slate-100 bg-purple-600 text-white font-press text-[7px] uppercase shadow-retro-sm">
+                  <div className="absolute top-2 left-2 px-2.5 py-1 border-2 border-slate-955 border-slate-950 dark:border-slate-100 bg-purple-600 text-white font-press text-[7px] uppercase shadow-retro-sm">
                     {game.genre}
+                  </div>
+                  {/* Type Badge */}
+                  <div className="absolute top-2 right-2 px-2.5 py-1 border-2 border-slate-950 dark:border-slate-100 bg-emerald-500 text-slate-950 font-press text-[7px] uppercase shadow-retro-sm font-bold">
+                    {game.type === 'app' ? t.itemApp : t.itemGame}
                   </div>
                 </div>
 

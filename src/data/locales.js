@@ -82,6 +82,12 @@ export const locales = {
     gamePlatform: "Platform",
     storeViewGrid: "Grid View",
     storeViewList: "List View",
+    storeTabAll: "All Releases",
+    storeTabGames: "Games",
+    storeTabApps: "Applications",
+    itemType: "Type",
+    itemGame: "Game",
+    itemApp: "Application",
 
     // Contact
     contactTitle: "ESTABLISH CONTACT",
@@ -215,6 +221,12 @@ export const locales = {
     gamePlatform: "Platform",
     storeViewGrid: "Tampilan Grid",
     storeViewList: "Tampilan List",
+    storeTabAll: "Semua Rilis",
+    storeTabGames: "Game",
+    storeTabApps: "Aplikasi",
+    itemType: "Tipe",
+    itemGame: "Game",
+    itemApp: "Aplikasi",
 
     // Contact
     contactTitle: "HUBUNGI KAMI",
@@ -348,6 +360,12 @@ export const locales = {
     gamePlatform: "プラットフォーム",
     storeViewGrid: "グリッド表示",
     storeViewList: "リスト表示",
+    storeTabAll: "すべてのリリース",
+    storeTabGames: "ゲーム",
+    storeTabApps: "アプリ",
+    itemType: "タイプ",
+    itemGame: "ゲーム",
+    itemApp: "アプリ",
 
     // Contact
     contactTitle: "コンタクトを確立する",

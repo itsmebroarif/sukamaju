@@ -21,6 +21,7 @@ export default function GameStore() {
   const [selectedGameForDetails, setSelectedGameForDetails] = useState(null);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   const [expandedGameId, setExpandedGameId] = useState(null);
+  const [activeTabType, setActiveTabType] = useState('all'); // 'all', 'game', 'app'
 
   // Parse genres dynamically
   const genres = useMemo(() => {
@@ -39,7 +40,13 @@ export default function GameStore() {
 
         const matchesGenre = genre === 'all' || game.genre.toLowerCase().includes(genre.toLowerCase());
 
-        return matchesSearch && matchesGenre;
+        const matchesType = activeTabType === 'all'
+          ? true
+          : activeTabType === 'app'
+            ? game.type === 'app'
+            : game.type !== 'app';
+
+        return matchesSearch && matchesGenre && matchesType;
       })
       .sort((a, b) => {
         if (sortBy === 'rating') return b.rating - a.rating;
@@ -56,7 +63,7 @@ export default function GameStore() {
         if (sortBy === 'year') return b.releaseYear - a.releaseYear;
         return 0;
       });
-  }, [search, genre, sortBy, lang]);
+  }, [search, genre, sortBy, lang, activeTabType]);
 
   const handleLaunchGame = (gameTitle, playUrl) => {
     playSuccess();
@@ -90,6 +97,29 @@ export default function GameStore() {
           <p className="font-inter text-xs md:text-sm text-slate-650 dark:text-slate-450 max-w-lg mt-2">
             {t.storeSubtitle}
           </p>
+        </div>
+
+        {/* Category Tabs: ALL / GAMES / APPLICATIONS */}
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
+          {[
+            { id: 'all', label: t.storeTabAll },
+            { id: 'game', label: t.storeTabGames },
+            { id: 'app', label: t.storeTabApps }
+          ].map(tab => (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => { playClick(); setActiveTabType(tab.id); }}
+              onMouseEnter={playHover}
+              className={`px-4 py-2 border-2 border-slate-950 dark:border-slate-100 font-press text-[8px] sm:text-[9px] uppercase tracking-wide shadow-retro-sm transition-all duration-100 active:translate-x-[1px] active:translate-y-[1px] ${
+                activeTabType === tab.id
+                  ? 'bg-purple-600 text-white shadow-none translate-x-[1px] translate-y-[1px]'
+                  : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-205'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
 
         {/* Filters Panel */}
@@ -201,6 +231,10 @@ export default function GameStore() {
                       <span className="absolute top-2 left-2 px-2 py-0.5 border-2 border-slate-950 dark:border-slate-100 bg-purple-600 text-white font-press text-[7px] uppercase shadow-retro-sm">
                         {game.genre}
                       </span>
+                      {/* Type badge */}
+                      <span className="absolute top-2 right-2 px-2 py-0.5 border-2 border-slate-950 dark:border-slate-100 bg-emerald-555 bg-emerald-500 text-slate-950 font-press text-[7px] uppercase shadow-retro-sm font-bold">
+                        {game.type === 'app' ? t.itemApp : t.itemGame}
+                      </span>
                     </div>
 
                     {/* Meta info */}
@@ -288,6 +322,9 @@ export default function GameStore() {
                       </h3>
                       <span className="font-press text-[7px] border-2 border-slate-950 dark:border-slate-100 px-2 py-0.5 bg-purple-600 text-white shadow-retro-sm uppercase">
                         {game.platform || 'PC'}
+                      </span>
+                      <span className="font-press text-[7px] border-2 border-slate-950 dark:border-slate-100 px-2 py-0.5 bg-emerald-500 text-slate-955 text-slate-950 shadow-retro-sm uppercase font-bold">
+                        {game.type === 'app' ? t.itemApp : t.itemGame}
                       </span>
                     </div>
 

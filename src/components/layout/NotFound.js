@@ -6,7 +6,7 @@ import RetroButton from '../ui/RetroButton';
 export default function NotFound() {
   const { setPage } = useNavStore();
   const { lang } = useLangStore();
-  
+
   const [typedText, setTypedText] = useState('');
   const fullCommand = 'dir C:\\kafeinarts\\secret_data';
 
@@ -26,7 +26,7 @@ export default function NotFound() {
   return (
     <div className="py-12 px-4 md:px-8 max-w-2xl mx-auto font-mono transition-colors duration-200">
       <div className="border-4 border-slate-950 dark:border-slate-100 shadow-retro bg-black p-4 relative overflow-hidden animate-crt-flicker min-h-[400px] flex flex-col justify-between text-left">
-        
+
         {/* CRT Scanline Overlay */}
         <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none z-10" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.15)_50%)] bg-[size:100%_4px] pointer-events-none z-10" />
@@ -42,11 +42,11 @@ export default function NotFound() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <div>Microsoft(R) MS-DOS(R) Version 6.22</div>
-            <div>(C)Copyright Microsoft Corp 1981-1994.</div>
+            <div>Kafeinarts(R) Term-Os(R) Version 6.22</div>
+            <div>(C)Copyright Kafeinarts Corp 1981-1994.</div>
             <br />
             <div>C:\&gt;{typedText}<span className="animate-blink text-white">_</span></div>
-            
+
             {typedText === fullCommand && (
               <div className="mt-4 flex flex-col gap-1.5 text-rose-450 text-rose-400">
                 <div className="flex items-center gap-2 font-bold font-press text-[10px] text-rose-500 animate-pulse">
@@ -55,7 +55,7 @@ export default function NotFound() {
                 </div>
                 <div className="mt-2">&gt;&gt; SECTOR NOT FOUND ON C: DRIVE</div>
                 <div>&gt;&gt; REQUESTED DIRECTORY IS MISSING OR CORRUPTED</div>
-                <div>&gt;&gt; HACK DETECTION: FILE NOT RECOVERABLE</div>
+                <div>&gt;&gt; FAIL TO DETECTION: FILE NOT RECOVERABLE</div>
                 <br />
                 <div className="font-press text-[9px] text-white">
                   Abort, Retry, Fail? _

@@ -8,35 +8,33 @@ export default function About() {
   const { lang } = useLangStore();
   const t = locales[lang];
 
-  const totalGames = gamesData.length;
-  const avgRating = totalGames > 0 
-    ? (gamesData.reduce((acc, g) => acc + g.rating, 0) / totalGames).toFixed(1) 
+  const totalGames = gamesData.filter(g => g.type !== 'app').length;
+  const totalApps = gamesData.filter(g => g.type === 'app').length;
+  const avgRating = gamesData.length > 0 
+    ? (gamesData.reduce((acc, g) => acc + g.rating, 0) / gamesData.length).toFixed(1) 
     : "0.0";
-  const genresCount = totalGames > 0
+  const genresCount = gamesData.length > 0
     ? new Set(gamesData.map(g => g.genre.split(' / ')[0])).size
-    : 0;
-  const premiumGames = totalGames > 0
-    ? gamesData.filter(g => g.price > 0).length
     : 0;
 
   const statLabels = {
     en: {
       games: "Active Games",
-      rating: "Avg User Rating",
-      genres: "Genre Count",
-      premium: "Premium Titles"
+      apps: "Active Apps",
+      rating: "Avg Rating",
+      genres: "Genre Count"
     },
     id: {
       games: "Game Aktif",
+      apps: "Aplikasi Aktif",
       rating: "Rata-Rata Rating",
-      genres: "Jumlah Genre",
-      premium: "Judul Berbayar"
+      genres: "Jumlah Genre"
     },
     jp: {
-      games: "アクティブゲーム",
+      games: "ゲーム数",
+      apps: "アプリ数",
       rating: "平均評価",
-      genres: "ジャンル数",
-      premium: "有料タイトル"
+      genres: "ジャンル数"
     }
   };
 
@@ -44,9 +42,9 @@ export default function About() {
 
   const stats = [
     { label: currentLabels.games, value: String(totalGames) },
+    { label: currentLabels.apps, value: String(totalApps) },
     { label: currentLabels.rating, value: avgRating + " / 5.0" },
-    { label: currentLabels.genres, value: String(genresCount) },
-    { label: currentLabels.premium, value: String(premiumGames) }
+    { label: currentLabels.genres, value: String(genresCount) }
   ];
 
   return (

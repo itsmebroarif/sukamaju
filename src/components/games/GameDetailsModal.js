@@ -251,6 +251,16 @@ export default function GameDetailsModal({ game, onClose, onPlay, lang }) {
                     </span>
                   </div>
 
+                  {/* Classification Type */}
+                  <div className="flex flex-col gap-1 mt-2">
+                    <span className="font-press text-[8px] text-slate-400 dark:text-slate-500 uppercase">
+                      {t.itemType}:
+                    </span>
+                    <span className="font-press text-[8px] text-purple-650 dark:text-cyan-400 font-bold uppercase">
+                      {game.type === 'app' ? t.itemApp : t.itemGame}
+                    </span>
+                  </div>
+
                 </div>
               </div>
             </div>

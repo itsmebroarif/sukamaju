@@ -1,11 +1,5 @@
 // API Integration Module - Google Sheets / Email Backend
 const API_URL = process.env.REACT_APP_API_URL || '';
-
-/**
- * Transmits collaboration requests to the Google Sheets / email API.
- * @param {Object} data { name, email, phone, idea }
- * @returns {Promise<Object>} Response status
- */
 export async function submitCollaboration(data) {
   console.log('Sending Collaboration Proposal:', data);
 
@@ -13,7 +7,6 @@ export async function submitCollaboration(data) {
     console.warn('API URL (REACT_APP_API_URL) is not defined. Simulating local API submission.');
     return new Promise((resolve) => {
       setTimeout(() => {
-        // Save to local storage mock array as preview
         const stored = JSON.parse(localStorage.getItem('kafeinarts-mock-collabs') || '[]');
         stored.push({ id: `collab-${Date.now()}`, timestamp: new Date().toISOString(), ...data });
         localStorage.setItem('kafeinarts-mock-collabs', JSON.stringify(stored));
@@ -34,22 +27,15 @@ export async function submitCollaboration(data) {
         ...data
       }),
     });
-
     if (!response.ok) {
       throw new Error(`HTTP Error Status: ${response.status}`);
     }
-
     return await response.json();
   } catch (error) {
     console.error('API submission failed:', error);
     throw error;
   }
 }
-
-/**
- * Retrieves the logged list of collaborators from the database/Google Sheets.
- * @returns {Promise<Array>} List of collaborators
- */
 export async function fetchCollaborators() {
   if (!API_URL) {
     console.warn('API URL is not defined. Loading mock collaborators from local storage.');
@@ -88,12 +74,6 @@ export async function fetchCollaborators() {
     throw error;
   }
 }
-
-/**
- * Transmits general contact messages to the Google Sheets / email API.
- * @param {Object} data { name, email, subject, message }
- * @returns {Promise<Object>} Response status
- */
 export async function submitContactMessage(data) {
   console.log('Sending Contact Message:', data);
 
