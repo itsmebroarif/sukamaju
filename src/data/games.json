@@ -16,8 +16,11 @@
     "rating": 5,
     "releaseYear": 2026,
     "image": "/images/games/Cover.png",
-    "featured": true,
-    "playUrl": "https://www.roblox.com/share?code=a53ff49614c7834a99038e19bad7ef84&type=ExperienceDetails&stamp=1782502607033"
+    "featured": false,
+    "playUrl": "https://www.roblox.com/share?code=a53ff49614c7834a99038e19bad7ef84&type=ExperienceDetails&stamp=1782502607033",
+    "videoUrl": "",
+    "platform": "",
+    "type": "game"
   },
   {
     "id": "game-1782504191312",
@@ -36,8 +39,11 @@
     "rating": 5,
     "releaseYear": 2026,
     "image": "/images/games/Nongkrong Dibulan.png",
-    "featured": true,
-    "playUrl": "https://www.roblox.com/share?code=7f40de8bbcbea745a152b531cc50d8fb&type=ExperienceDetails&stamp=1782504138379"
+    "featured": false,
+    "playUrl": "https://www.roblox.com/share?code=7f40de8bbcbea745a152b531cc50d8fb&type=ExperienceDetails&stamp=1782504138379",
+    "videoUrl": "",
+    "platform": "",
+    "type": "game"
   },
   {
     "id": "game-1782505140128",
@@ -56,10 +62,11 @@
     "rating": 4.8,
     "releaseYear": 2026,
     "image": "/images/games/browseasy.jpeg",
-    "featured": true,
+    "featured": false,
     "playUrl": "https://browseasy.vercel.app/",
     "videoUrl": "/videos/games/BROWSEASY YUKI.mp4",
-    "platform": ""
+    "platform": "",
+    "type": "game"
   },
   {
     "id": "game-1782571964895",
