@@ -131,7 +131,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 flex flex-col justify-between selection:bg-purple-650 selection:bg-purple-605 selection:text-white transition-colors duration-200">
+    <div className="min-h-screen bg-[#f5f5f7] dark:bg-[#000000] text-[#1d1d1f] dark:text-[#f5f5f7] flex flex-col justify-between transition-colors duration-300">
       {/* Navigation Layer */}
       <Navbar />
 

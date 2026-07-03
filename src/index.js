@@ -12,10 +12,10 @@ window.addEventListener('error', (e) => {
   
   if (isScriptError || isChunkError) {
     console.warn('Asset loading failed. Forcing reload to fetch fresh assets...', e);
-    const lastReload = localStorage.getItem('kafeinarts-last-reload');
+    const lastReload = localStorage.getItem('sukamaju-last-reload');
     const now = Date.now();
     if (!lastReload || now - parseInt(lastReload, 10) > 10000) {
-      localStorage.setItem('kafeinarts-last-reload', now.toString());
+      localStorage.setItem('sukamaju-last-reload', now.toString());
       window.location.reload();
     }
   }

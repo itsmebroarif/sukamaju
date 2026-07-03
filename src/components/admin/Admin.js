@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldCheck, Plus, Trash2, Edit2, KeyRound, Settings, LayoutGrid, CheckCircle, Users, Mail, MessageSquare, Video, Upload } from 'lucide-react';
+import { ShieldCheck, Plus, Trash2, Edit2, KeyRound, Settings, LayoutGrid, CheckCircle, Users, Mail, MessageSquare, Video, Upload, AppWindow } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { useAdminStore, useLangStore } from '../../lib/store';
 import { playHover, playClick, playSuccess, playFail } from '../../lib/sfx';
@@ -66,13 +66,16 @@ export default function Admin() {
   const [videoFile, setVideoFile] = useState(null);
   const [videoFileName, setVideoFileName] = useState('');
 
-  // Selected platforms check status
   const [selectedPlatforms, setSelectedPlatforms] = useState({
     PC: false,
     Console: false,
     Android: false,
     iOS: false,
-    Roblox: false
+    Roblox: false,
+    Windows: false,
+    Linux: false,
+    Mac: false,
+    Webapps: false
   });
 
   // Github form configs
@@ -272,8 +275,12 @@ export default function Admin() {
       return;
     }
 
+    const gamePlatformsList = ['PC', 'Console', 'Android', 'iOS', 'Roblox'];
+    const appPlatformsList = ['Windows', 'Linux', 'Mac', 'Android', 'iOS', 'Webapps'];
+    const activePlatforms = newGame.type === 'app' ? appPlatformsList : gamePlatformsList;
+
     const platformString = Object.keys(selectedPlatforms)
-      .filter(key => selectedPlatforms[key])
+      .filter(key => activePlatforms.includes(key) && selectedPlatforms[key])
       .join(' / ');
 
     if (editingGameId) {
@@ -355,6 +362,10 @@ export default function Admin() {
     }
 
     // Reset Form & File Selection
+    resetForm(activeTab === 'apps' ? 'app' : 'game');
+  };
+
+  const resetForm = (typeDefault = 'game') => {
     setNewGame({
       id: '',
       titleEn: '',
@@ -364,16 +375,17 @@ export default function Admin() {
       descId: '',
       descJp: '',
       price: 0,
-      genre: 'RPG / Adventure',
-      rating: 4.5,
+      genre: 'SaaS / Utility',
+      rating: 5.0,
       releaseYear: new Date().getFullYear(),
       image: '',
       featured: false,
       playUrl: '',
       videoUrl: '',
       platform: '',
-      type: 'game'
+      type: typeDefault
     });
+    setEditingGameId(null);
     setImageFile(null);
     setImageFileName('');
     setVideoFile(null);
@@ -383,7 +395,11 @@ export default function Admin() {
       Console: false,
       Android: false,
       iOS: false,
-      Roblox: false
+      Roblox: false,
+      Windows: false,
+      Linux: false,
+      Mac: false,
+      Webapps: false
     });
   };
 
@@ -410,19 +426,30 @@ export default function Admin() {
       type: game.type || 'game'
     });
 
-    const platforms = game.platform || '';
+    const platforms = game.platform ? game.platform.split(/\s*[/,]\s*/) : [];
     setSelectedPlatforms({
       PC: platforms.includes('PC'),
       Console: platforms.includes('Console'),
       Android: platforms.includes('Android'),
       iOS: platforms.includes('iOS'),
-      Roblox: platforms.includes('Roblox')
+      Roblox: platforms.includes('Roblox'),
+      Windows: platforms.includes('Windows'),
+      Linux: platforms.includes('Linux'),
+      Mac: platforms.includes('Mac'),
+      Webapps: platforms.includes('Webapps') || platforms.includes('Web App') || platforms.includes('Webapps')
     });
 
     setImageFile(null);
     setImageFileName('');
     setVideoFile(null);
     setVideoFileName('');
+
+    // Switch to corresponding tab
+    if (game.type === 'app') {
+      setActiveTab('apps');
+    } else {
+      setActiveTab('games');
+    }
     // Scroll to form smoothly
     const formEl = document.getElementById('game-form');
     if (formEl) {
@@ -652,7 +679,7 @@ export default function Admin() {
       // 5. Commit json back to GitHub
       const putUrl = `https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${githubPath}`;
       const body = {
-        message: 'feat: update games.json database via KafeinArts Admin Panel',
+        message: 'feat: update games.json database via Sukamaju Hub Admin Panel',
         content: base64Content,
         branch: githubBranch
       };
@@ -752,7 +779,7 @@ export default function Admin() {
         const formattedTime = new Date(time).toLocaleString();
 
         // Draft invitation message
-        let inviteMsg = `*📅 GOOGLE MEET INVITATION - KAFEINARTS STUDIO*\n`;
+        let inviteMsg = `*📅 GOOGLE MEET INVITATION - SUKAMAJU HUB*\n`;
         inviteMsg += `=======================================\n`;
         inviteMsg += `Topic: ${agenda}\n`;
         inviteMsg += `Time: ${formattedTime}\n\n`;
@@ -806,7 +833,7 @@ export default function Admin() {
         >
           <form onSubmit={handlePinSubmit} className="flex flex-col gap-6 mt-2 text-left">
             <div className="flex justify-center mb-2">
-              <div className="w-16 h-16 border-4 border-slate-950 dark:border-slate-100 bg-purple-600 text-white flex items-center justify-center shadow-retro">
+              <div className="w-16 h-16 rounded-2xl bg-[#0071e3] text-white flex items-center justify-center shadow-sm">
                 <KeyRound className="w-8 h-8" />
               </div>
             </div>
@@ -837,23 +864,25 @@ export default function Admin() {
 
   // ================= 2. RENDER ADMIN WORKSPACE WITH SIDEBAR =================
   return (
-    <div className="py-6 px-4 md:px-8 transition-colors duration-200">
-      <div className="max-w-7xl mx-auto flex flex-col gap-6 font-inter">
+    <div className="py-6 px-4 md:px-8 transition-colors duration-250">
+      <div className="max-w-7xl mx-auto flex flex-col gap-6 font-sans">
 
         {/* Top Control Bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-4 border-slate-950 dark:border-slate-100 bg-purple-600 text-white p-4 shadow-retro">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border border-slate-200 dark:border-white/10 bg-slate-900 text-white p-5 rounded-3xl shadow-sm">
           <div className="flex items-center gap-3">
-            <ShieldCheck className="w-6 h-6 animate-pulse" />
-            <div className="text-left font-press uppercase">
-              <h1 className="text-xs sm:text-sm tracking-wide">SYSTEMS ADMIN WORKSPACE</h1>
-              <span className="text-[7px] text-purple-200 font-normal">GitHub Repositories Sync Client v1.1</span>
+            <div className="w-8 h-8 rounded-lg bg-[#0071e3] flex items-center justify-center">
+              <ShieldCheck className="w-5 h-5 text-white animate-pulse" />
+            </div>
+            <div className="text-left">
+              <h1 className="text-sm md:text-base font-bold tracking-tight">SUKAMAJU HUB ADMIN WORKSPACE</h1>
+              <span className="text-[10px] text-slate-400 font-medium">GitHub Repositories Sync Client v1.1</span>
             </div>
           </div>
           <RetroButton
             variant="gray"
             size="sm"
             onClick={triggerLogout}
-            className="mt-3 sm:mt-0 text-[8px]"
+            className="mt-3 sm:mt-0"
           >
             LOCK CONSOLE
           </RetroButton>
@@ -886,22 +915,40 @@ export default function Admin() {
             </RetroCard>
 
             {/* Sidebar Buttons */}
-            <RetroCard variant="default" title="SIDEBAR_NAV">
-              <div className="flex flex-row md:flex-col gap-2 overflow-x-auto md:overflow-x-visible pb-2 md:pb-0">
+            <RetroCard variant="default" title="SIDEBAR NAVIGATION">
+              <div className="flex flex-row md:flex-col gap-1 overflow-x-auto md:overflow-x-visible pb-2 md:pb-0">
                 <button
-                  onClick={() => { playClick(); setActiveTab('games'); }}
+                  onClick={() => { playClick(); setActiveTab('games'); resetForm('game'); }}
                   onMouseEnter={playHover}
-                  className={`flex-1 md:w-full text-left p-3 border-2 border-slate-950 dark:border-slate-100 font-press text-[9px] uppercase shadow-retro-sm flex items-center gap-2 whitespace-nowrap ${activeTab === 'games' ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800'
-                    }`}
+                  className={`flex-1 md:w-full text-left px-4 py-3 rounded-xl font-medium text-sm transition-all duration-200 flex items-center gap-2.5 whitespace-nowrap ${
+                    activeTab === 'games' 
+                      ? 'bg-[#0071e3] text-white shadow-sm font-semibold' 
+                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50'
+                  }`}
                 >
                   <LayoutGrid className="w-4 h-4" />
                   Games
                 </button>
                 <button
+                  onClick={() => { playClick(); setActiveTab('apps'); resetForm('app'); }}
+                  onMouseEnter={playHover}
+                  className={`flex-1 md:w-full text-left px-4 py-3 rounded-xl font-medium text-sm transition-all duration-200 flex items-center gap-2.5 whitespace-nowrap ${
+                    activeTab === 'apps' 
+                      ? 'bg-[#0071e3] text-white shadow-sm font-semibold' 
+                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50'
+                  }`}
+                >
+                  <AppWindow className="w-4 h-4" />
+                  Applications
+                </button>
+                <button
                   onClick={() => { playClick(); setActiveTab('collaborators'); }}
                   onMouseEnter={playHover}
-                  className={`flex-1 md:w-full text-left p-3 border-2 border-slate-950 dark:border-slate-100 font-press text-[9px] uppercase shadow-retro-sm flex items-center gap-2 whitespace-nowrap ${activeTab === 'collaborators' ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800'
-                    }`}
+                  className={`flex-1 md:w-full text-left px-4 py-3 rounded-xl font-medium text-sm transition-all duration-200 flex items-center gap-2.5 whitespace-nowrap ${
+                    activeTab === 'collaborators' 
+                      ? 'bg-[#0071e3] text-white shadow-sm font-semibold' 
+                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50'
+                  }`}
                 >
                   <Users className="w-4 h-4" />
                   Collaborators
@@ -909,8 +956,11 @@ export default function Admin() {
                 <button
                   onClick={() => { playClick(); setActiveTab('config'); }}
                   onMouseEnter={playHover}
-                  className={`flex-1 md:w-full text-left p-3 border-2 border-slate-950 dark:border-slate-100 font-press text-[9px] uppercase shadow-retro-sm flex items-center gap-2 whitespace-nowrap ${activeTab === 'config' ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800'
-                    }`}
+                  className={`flex-1 md:w-full text-left px-4 py-3 rounded-xl font-medium text-sm transition-all duration-200 flex items-center gap-2.5 whitespace-nowrap ${
+                    activeTab === 'config' 
+                      ? 'bg-[#0071e3] text-white shadow-sm font-semibold' 
+                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50'
+                  }`}
                 >
                   <Settings className="w-4 h-4" />
                   Settings
@@ -928,8 +978,14 @@ export default function Admin() {
               <div className="flex flex-col gap-6">
 
                 {/* Form: Add Game Wizard */}
-                <RetroCard variant="default" title={editingGameId ? "EDIT_GAME_RECORD" : "GAME_CREATOR_WIZARD"} id="game-form">
-                  <form onSubmit={handleSaveGame} className="flex flex-col gap-4 text-left">
+                <RetroCard variant="default" title={editingGameId ? "EDIT GAME RECORD" : "GAME CREATOR WIZARD"} id="game-form">
+                  <form 
+                    onSubmit={(e) => {
+                      newGame.type = 'game';
+                      handleSaveGame(e);
+                    }} 
+                    className="flex flex-col gap-5 text-left"
+                  >
 
                     {/* Multilang Titles */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -978,7 +1034,7 @@ export default function Admin() {
                     </div>
 
                     {/* Parameters */}
-                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                       <RetroInput
                         id="genre"
                         label="Genre Category"
@@ -1001,36 +1057,17 @@ export default function Admin() {
                       />
 
                       <div className="flex flex-col gap-1.5 justify-center">
-                        <label className="font-press text-[9px] uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                          Item Type
-                        </label>
-                        <div className="flex border-2 border-slate-950 dark:border-slate-100 overflow-hidden shadow-retro-sm">
-                          <button
-                            type="button"
-                            onClick={() => { playClick(); setNewGame({ ...newGame, type: 'game' }); }}
-                            className={`flex-1 px-2 py-2.5 font-press text-[7px] uppercase select-none ${newGame.type !== 'app' ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200'}`}
-                          >
-                            GAME
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => { playClick(); setNewGame({ ...newGame, type: 'app' }); }}
-                            className={`flex-1 px-2 py-2.5 font-press text-[7px] uppercase select-none border-l-2 border-slate-950 dark:border-slate-100 ${newGame.type === 'app' ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200'}`}
-                          >
-                            APP
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-col gap-1.5 justify-center">
-                        <label className="font-press text-[9px] uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                        <label className="font-semibold text-xs text-slate-500 dark:text-slate-400">
                           Featured Status
                         </label>
                         <button
                           type="button"
                           onClick={() => setNewGame({ ...newGame, featured: !newGame.featured })}
-                          className={`px-3 py-2.5 border-2 border-slate-955 border-slate-950 dark:border-slate-100 font-press text-[8px] uppercase select-none ${newGame.featured ? 'bg-purple-600 text-white shadow-retro-sm' : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-2'
-                            }`}
+                          className={`px-3 py-2.5 rounded-xl border text-xs font-semibold select-none transition-all active:scale-95 ${
+                            newGame.featured 
+                              ? 'bg-[#0071e3] border-[#0071e3] text-white shadow-sm' 
+                              : 'bg-white dark:bg-[#1c1c1e] border-slate-200 dark:border-white/5 text-slate-700 dark:text-slate-300'
+                          }`}
                         >
                           {newGame.featured ? 'FEATURED' : 'REGULAR'}
                         </button>
@@ -1044,21 +1081,21 @@ export default function Admin() {
                         label="Game Play / Download URL (Roblox, itch.io, etc.)"
                         value={newGame.playUrl}
                         onChange={(e) => setNewGame({ ...newGame, playUrl: e.target.value })}
-                        placeholder="e.g., https://www.roblox.com/games/123456 or https://kafeinarts.itch.io/game"
+                        placeholder="e.g., https://www.roblox.com/games/123456 or https://sukamajuhub.itch.io/game"
                       />
                     </div>
 
                     {/* Supported Platforms Checkboxes */}
                     <div className="flex flex-col gap-2 w-full text-left">
-                      <label className="font-press text-[9px] uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                        Supported Platforms
+                      <label className="font-semibold text-xs text-slate-500 dark:text-slate-400">
+                        Supported Platforms (Console, PC, Android, iOS, Roblox)
                       </label>
-                      <div className="flex flex-wrap gap-4 border-2 border-slate-950 dark:border-slate-100 p-3 bg-white dark:bg-slate-900 shadow-retro-sm">
-                        {Object.keys(selectedPlatforms).map((plat) => (
-                          <label key={plat} className="flex items-center gap-2 cursor-pointer select-none">
+                      <div className="flex flex-wrap gap-4 border border-slate-200 dark:border-slate-800 p-3.5 bg-slate-50 dark:bg-slate-900/50 rounded-xl">
+                        {['PC', 'Console', 'Android', 'iOS', 'Roblox'].map((plat) => (
+                          <label key={plat} className="flex items-center gap-2 cursor-pointer select-none text-sm text-slate-700 dark:text-slate-350 font-medium">
                             <input
                               type="checkbox"
-                              checked={selectedPlatforms[plat]}
+                              checked={!!selectedPlatforms[plat]}
                               onChange={() => {
                                 playClick();
                                 setSelectedPlatforms({
@@ -1066,9 +1103,9 @@ export default function Admin() {
                                   [plat]: !selectedPlatforms[plat]
                                 });
                               }}
-                              className="w-4 h-4 cursor-pointer accent-purple-650"
+                              className="w-4 h-4 cursor-pointer accent-[#0071e3]"
                             />
-                            <span className="font-press text-[8px] uppercase text-slate-800 dark:text-slate-200">
+                            <span className="text-xs uppercase text-slate-800 dark:text-slate-200">
                               {plat}
                             </span>
                           </label>
@@ -1078,12 +1115,12 @@ export default function Admin() {
 
                     {/* Image File Uploader */}
                     <div className="flex flex-col gap-1.5 w-full">
-                      <label className="font-press text-[9px] uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                      <label className="font-semibold text-xs text-slate-500 dark:text-slate-400">
                         Choose Game Image Thumbnail (Saved in public/images/games/ & pushed to GitHub)
                       </label>
-                      <div className="flex gap-2 items-center">
-                        <label className="cursor-pointer px-4 py-2.5 border-2 border-slate-950 dark:border-slate-100 font-press text-[9px] uppercase bg-slate-100 dark:bg-slate-900 shadow-retro-sm active:translate-y-[1px] hover:bg-slate-200 flex items-center gap-1.5">
-                          <Upload className="w-4 h-4" />
+                      <div className="flex gap-2.5 items-center">
+                        <label className="cursor-pointer px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-1.5 shadow-sm active:scale-95 transition-all">
+                          <Upload className="w-4 h-4 text-slate-500" />
                           SELECT IMAGE FILE
                           <input
                             type="file"
@@ -1100,12 +1137,12 @@ export default function Admin() {
 
                     {/* Video File Uploader */}
                     <div className="flex flex-col gap-1.5 w-full">
-                      <label className="font-press text-[9px] uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                      <label className="font-semibold text-xs text-slate-500 dark:text-slate-400">
                         Choose Game Video Trailer (Saved in public/videos/games/ & pushed to GitHub, Max 200MB)
                       </label>
-                      <div className="flex gap-2 items-center">
-                        <label className="cursor-pointer px-4 py-2.5 border-2 border-slate-950 dark:border-slate-100 font-press text-[9px] uppercase bg-slate-100 dark:bg-slate-900 shadow-retro-sm active:translate-y-[1px] hover:bg-slate-200 flex items-center gap-1.5">
-                          <Video className="w-4 h-4" />
+                      <div className="flex gap-2.5 items-center">
+                        <label className="cursor-pointer px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-1.5 shadow-sm active:scale-95 transition-all">
+                          <Video className="w-4 h-4 text-slate-500" />
                           SELECT VIDEO FILE
                           <input
                             type="file"
@@ -1120,7 +1157,7 @@ export default function Admin() {
                       </div>
                     </div>
 
-                    <div className="mt-4 flex justify-end gap-3">
+                    <div className="mt-4 flex justify-end gap-3 border-t border-slate-100 dark:border-white/5 pt-4">
                       {editingGameId && (
                         <RetroButton type="button" variant="gray" onClick={handleCancelEdit}>
                           CANCEL EDIT
@@ -1135,10 +1172,10 @@ export default function Admin() {
                 </RetroCard>
 
                 {/* List: Existing Games */}
-                <RetroCard variant="default" title="CURRENT_GAMES_RECORD">
+                <RetroCard variant="default" title="CURRENT GAMES RECORD">
                   <div className="flex flex-col gap-3">
                     {games.filter(g => g.type !== 'app').length === 0 ? (
-                      <div className="py-6 text-center font-press text-[9px] uppercase text-slate-400">
+                      <div className="py-8 text-center text-xs text-slate-400 font-medium">
                         NO GAMES LOADED IN ARCHIVE
                       </div>
                     ) : (
@@ -1147,20 +1184,25 @@ export default function Admin() {
                         return (
                           <div
                             key={game.id}
-                            className="flex items-center justify-between p-3 border-2 border-slate-950 dark:border-slate-100 bg-white dark:bg-slate-955 bg-slate-950 shadow-retro-sm"
+                            className="flex items-center justify-between p-4 border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-[#1c1c1e]/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-300 dark:hover:border-white/10 transition-colors"
                           >
-                            <div className="flex items-center gap-3 text-left">
+                            <div className="flex items-center gap-3.5 text-left">
                               <img
                                 src={game.image}
                                 alt={title}
-                                className="w-10 h-10 object-cover border-2 border-slate-950 dark:border-slate-100 bg-slate-800"
+                                className="w-12 h-12 object-cover rounded-xl border border-slate-200 dark:border-white/5 bg-slate-800"
                               />
                               <div>
-                                <h4 className="font-press text-[9px] uppercase text-slate-900 dark:text-slate-100">
-                                  {title} {game.featured && <span className="text-[7px] text-purple-600 bg-purple-100 dark:bg-purple-900/40 px-1 border border-purple-650 ml-1">featured</span>}
+                                <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100 flex items-center">
+                                  {title} 
+                                  {game.featured && (
+                                    <span className="text-[9px] font-semibold text-purple-605 text-purple-600 bg-purple-50 dark:bg-purple-900/20 dark:text-purple-400 px-2 py-0.5 rounded-full border border-purple-100 dark:border-purple-900/30 ml-1.5">
+                                      featured
+                                    </span>
+                                  )}
                                 </h4>
-                                <span className="font-mono text-[9px] text-slate-500 block">
-                                  Genre: {game.genre} | Year: {game.releaseYear} | Path: {game.image} | URL: <a href={game.playUrl} target="_blank" rel="noopener noreferrer" className="underline text-purple-600 dark:text-cyan-400">{game.playUrl || 'None'}</a>
+                                <span className="text-xs text-slate-400 font-medium block mt-0.5">
+                                  Genre: {game.genre} | Year: {game.releaseYear} | Platforms: {game.platform || 'None'} | URL: <a href={game.playUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#0071e3] hover:text-[#147ce5]">{game.playUrl ? 'Link' : 'None'}</a>
                                 </span>
                               </div>
                             </div>
@@ -1169,7 +1211,7 @@ export default function Admin() {
                               <button
                                 type="button"
                                 onClick={() => handleEditGame(game)}
-                                className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-amber-50 dark:bg-amber-950/20 text-amber-600 hover:bg-amber-500 hover:text-white shadow-retro-sm transition-colors duration-150"
+                                className="p-2 border border-slate-200 dark:border-slate-800 bg-amber-50 dark:bg-amber-955 bg-slate-900 text-amber-600 hover:bg-amber-500 hover:text-white rounded-xl transition-all active:scale-95"
                                 aria-label="Edit Game"
                               >
                                 <Edit2 className="w-4 h-4" />
@@ -1178,7 +1220,7 @@ export default function Admin() {
                               <button
                                 type="button"
                                 onClick={() => handleDeleteGame(game.id)}
-                                className="p-2 border-2 border-slate-955 border-slate-950 dark:border-slate-100 bg-rose-50 dark:bg-rose-950/20 text-rose-500 hover:bg-rose-500 hover:text-white shadow-retro-sm transition-colors duration-150"
+                                className="p-2 border border-slate-200 dark:border-slate-800 bg-rose-50 dark:bg-rose-955 bg-slate-900 text-rose-600 hover:bg-rose-500 hover:text-white rounded-xl transition-all active:scale-95"
                                 aria-label="Delete Game"
                               >
                                 <Trash2 className="w-4 h-4" />
@@ -1191,11 +1233,212 @@ export default function Admin() {
                   </div>
                 </RetroCard>
 
+              </div>
+            )}
+
+            {/* T1.5: APPLICATIONS MANAGER TAB */}
+            {activeTab === 'apps' && (
+              <div className="flex flex-col gap-6">
+
+                {/* Form: Add App Wizard */}
+                <RetroCard variant="default" title={editingGameId ? "EDIT APPLICATION RECORD" : "APPLICATION CREATOR WIZARD"} id="game-form">
+                  <form 
+                    onSubmit={(e) => {
+                      newGame.type = 'app';
+                      handleSaveGame(e);
+                    }} 
+                    className="flex flex-col gap-5 text-left"
+                  >
+
+                    {/* Multilang Titles */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <RetroInput
+                        id="title-en"
+                        label="Application Title (English)"
+                        value={newGame.titleEn}
+                        onChange={(e) => setNewGame({ ...newGame, titleEn: e.target.value })}
+                        required
+                      />
+                      <RetroInput
+                        id="title-id"
+                        label="Application Title (Indonesian)"
+                        value={newGame.titleId}
+                        onChange={(e) => setNewGame({ ...newGame, titleId: e.target.value })}
+                      />
+                      <RetroInput
+                        id="title-jp"
+                        label="Application Title (Japanese)"
+                        value={newGame.titleJp}
+                        onChange={(e) => setNewGame({ ...newGame, titleJp: e.target.value })}
+                      />
+                    </div>
+
+                    {/* Multilang Descriptions */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <RetroInput
+                        id="desc-en"
+                        label="Description (English)"
+                        value={newGame.descEn}
+                        onChange={(e) => setNewGame({ ...newGame, descEn: e.target.value })}
+                        required
+                      />
+                      <RetroInput
+                        id="desc-id"
+                        label="Description (Indonesian)"
+                        value={newGame.descId}
+                        onChange={(e) => setNewGame({ ...newGame, descId: e.target.value })}
+                      />
+                      <RetroInput
+                        id="desc-jp"
+                        label="Description (Japanese)"
+                        value={newGame.descJp}
+                        onChange={(e) => setNewGame({ ...newGame, descJp: e.target.value })}
+                      />
+                    </div>
+
+                    {/* Parameters */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                      <RetroInput
+                        id="genre"
+                        label="App Category"
+                        value={newGame.genre}
+                        onChange={(e) => setNewGame({ ...newGame, genre: e.target.value })}
+                      />
+                      <RetroInput
+                        id="rating"
+                        type="number"
+                        label="Rating (1.0-5.0)"
+                        value={newGame.rating}
+                        onChange={(e) => setNewGame({ ...newGame, rating: e.target.value })}
+                      />
+                      <RetroInput
+                        id="year"
+                        type="number"
+                        label="Release Year"
+                        value={newGame.releaseYear}
+                        onChange={(e) => setNewGame({ ...newGame, releaseYear: e.target.value })}
+                      />
+
+                      <div className="flex flex-col gap-1.5 justify-center">
+                        <label className="font-semibold text-xs text-slate-500 dark:text-slate-400">
+                          Featured Status
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => setNewGame({ ...newGame, featured: !newGame.featured })}
+                          className={`px-3 py-2.5 rounded-xl border text-xs font-semibold select-none transition-all active:scale-95 ${
+                            newGame.featured 
+                              ? 'bg-[#0071e3] border-[#0071e3] text-white shadow-sm' 
+                              : 'bg-white dark:bg-[#1c1c1e] border-slate-200 dark:border-white/5 text-slate-700 dark:text-slate-300'
+                          }`}
+                        >
+                          {newGame.featured ? 'FEATURED' : 'REGULAR'}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* App URL Input */}
+                    <div className="w-full">
+                      <RetroInput
+                        id="playUrl"
+                        label="App Website / Download Link (Play Store, App Store, webapps, etc.)"
+                        value={newGame.playUrl}
+                        onChange={(e) => setNewGame({ ...newGame, playUrl: e.target.value })}
+                        placeholder="e.g., https://sukamajuhub.com or https://play.google.com/store/apps/details?id=..."
+                      />
+                    </div>
+
+                    {/* Supported Platforms Checkboxes */}
+                    <div className="flex flex-col gap-2 w-full text-left">
+                      <label className="font-semibold text-xs text-slate-500 dark:text-slate-400">
+                        Supported Platforms (Windows, Linux, Mac, Android, iOS, Webapps)
+                      </label>
+                      <div className="flex flex-wrap gap-4 border border-slate-200 dark:border-slate-800 p-3.5 bg-slate-50 dark:bg-slate-900/50 rounded-xl">
+                        {['Windows', 'Linux', 'Mac', 'Android', 'iOS', 'Webapps'].map((plat) => (
+                          <label key={plat} className="flex items-center gap-2 cursor-pointer select-none text-sm text-slate-700 dark:text-slate-350 font-medium">
+                            <input
+                              type="checkbox"
+                              checked={!!selectedPlatforms[plat]}
+                              onChange={() => {
+                                playClick();
+                                setSelectedPlatforms({
+                                  ...selectedPlatforms,
+                                  [plat]: !selectedPlatforms[plat]
+                                });
+                              }}
+                              className="w-4 h-4 cursor-pointer accent-[#0071e3]"
+                            />
+                            <span className="text-xs uppercase text-slate-800 dark:text-slate-200">
+                              {plat}
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Image File Uploader */}
+                    <div className="flex flex-col gap-1.5 w-full">
+                      <label className="font-semibold text-xs text-slate-500 dark:text-slate-400">
+                        Choose App Image Thumbnail (Saved in public/images/games/ & pushed to GitHub)
+                      </label>
+                      <div className="flex gap-2.5 items-center">
+                        <label className="cursor-pointer px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-1.5 shadow-sm active:scale-95 transition-all">
+                          <Upload className="w-4 h-4 text-slate-500" />
+                          SELECT IMAGE FILE
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageFileChange}
+                            className="hidden"
+                          />
+                        </label>
+                        <span className="font-mono text-xs text-slate-500 truncate max-w-sm">
+                          {imageFileName || (newGame.image ? newGame.image.split('/').pop() : 'No file selected (will use placeholder)')}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Video File Uploader */}
+                    <div className="flex flex-col gap-1.5 w-full">
+                      <label className="font-semibold text-xs text-slate-500 dark:text-slate-400">
+                        Choose App Video Trailer (Saved in public/videos/games/ & pushed to GitHub, Max 200MB)
+                      </label>
+                      <div className="flex gap-2.5 items-center">
+                        <label className="cursor-pointer px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-1.5 shadow-sm active:scale-95 transition-all">
+                          <Video className="w-4 h-4 text-slate-500" />
+                          SELECT VIDEO FILE
+                          <input
+                            type="file"
+                            accept="video/*"
+                            onChange={handleVideoFileChange}
+                            className="hidden"
+                          />
+                        </label>
+                        <span className="font-mono text-xs text-slate-500 truncate max-w-sm">
+                          {videoFileName || (newGame.videoUrl ? newGame.videoUrl.split('/').pop() : 'No file selected')}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 flex justify-end gap-3 border-t border-slate-100 dark:border-white/5 pt-4">
+                      {editingGameId && (
+                        <RetroButton type="button" variant="gray" onClick={handleCancelEdit}>
+                          CANCEL EDIT
+                        </RetroButton>
+                      )}
+                      <RetroButton type="submit" variant="purple" className="flex items-center gap-2">
+                        <Plus className="w-4.5 h-4.5" />
+                        {editingGameId ? "UPDATE APPLICATION RECORD" : "ADD APPLICATION RECORD"}
+                      </RetroButton>
+                    </div>
+                  </form>
+                </RetroCard>
+
                 {/* List: Existing Applications */}
-                <RetroCard variant="default" title="CURRENT_APPLICATIONS_RECORD">
+                <RetroCard variant="default" title="CURRENT APPLICATIONS RECORD">
                   <div className="flex flex-col gap-3">
                     {games.filter(g => g.type === 'app').length === 0 ? (
-                      <div className="py-6 text-center font-press text-[9px] uppercase text-slate-400">
+                      <div className="py-8 text-center text-xs text-slate-400 font-medium">
                         NO APPLICATIONS LOADED IN ARCHIVE
                       </div>
                     ) : (
@@ -1204,20 +1447,25 @@ export default function Admin() {
                         return (
                           <div
                             key={game.id}
-                            className="flex items-center justify-between p-3 border-2 border-slate-950 dark:border-slate-100 bg-white dark:bg-slate-950 shadow-retro-sm"
+                            className="flex items-center justify-between p-4 border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-[#1c1c1e]/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-300 dark:hover:border-white/10 transition-colors"
                           >
-                            <div className="flex items-center gap-3 text-left">
+                            <div className="flex items-center gap-3.5 text-left">
                               <img
                                 src={game.image}
                                 alt={title}
-                                className="w-10 h-10 object-cover border-2 border-slate-950 dark:border-slate-100 bg-slate-800"
+                                className="w-12 h-12 object-cover rounded-xl border border-slate-200 dark:border-white/5 bg-slate-800"
                               />
                               <div>
-                                <h4 className="font-press text-[9px] uppercase text-slate-900 dark:text-slate-100">
-                                  {title} {game.featured && <span className="text-[7px] text-purple-600 bg-purple-100 dark:bg-purple-900/40 px-1 border border-purple-650 ml-1">featured</span>}
+                                <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100 flex items-center">
+                                  {title} 
+                                  {game.featured && (
+                                    <span className="text-[9px] font-semibold text-purple-650 text-purple-600 bg-purple-50 dark:bg-purple-900/20 dark:text-purple-400 px-2 py-0.5 rounded-full border border-purple-100 dark:border-purple-900/30 ml-1.5">
+                                      featured
+                                    </span>
+                                  )}
                                 </h4>
-                                <span className="font-mono text-[9px] text-slate-500 block">
-                                  Genre: {game.genre} | Year: {game.releaseYear} | Path: {game.image} | URL: <a href={game.playUrl} target="_blank" rel="noopener noreferrer" className="underline text-purple-600 dark:text-cyan-400">{game.playUrl || 'None'}</a>
+                                <span className="text-xs text-slate-400 font-medium block mt-0.5">
+                                  Category: {game.genre} | Year: {game.releaseYear} | Platforms: {game.platform || 'None'} | URL: <a href={game.playUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#0071e3] hover:text-[#147ce5]">{game.playUrl ? 'Link' : 'None'}</a>
                                 </span>
                               </div>
                             </div>
@@ -1226,7 +1474,7 @@ export default function Admin() {
                               <button
                                 type="button"
                                 onClick={() => handleEditGame(game)}
-                                className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-amber-50 dark:bg-amber-950/20 text-amber-600 hover:bg-amber-500 hover:text-white shadow-retro-sm transition-colors duration-150"
+                                className="p-2 border border-slate-200 dark:border-slate-800 bg-amber-50 dark:bg-amber-955 bg-slate-900 text-amber-600 hover:bg-amber-500 hover:text-white rounded-xl transition-all active:scale-95"
                                 aria-label="Edit Application"
                               >
                                 <Edit2 className="w-4 h-4" />
@@ -1235,7 +1483,7 @@ export default function Admin() {
                               <button
                                 type="button"
                                 onClick={() => handleDeleteGame(game.id)}
-                                className="p-2 border-2 border-slate-955 border-slate-950 dark:border-slate-100 bg-rose-50 dark:bg-rose-950/20 text-rose-500 hover:bg-rose-500 hover:text-white shadow-retro-sm transition-colors duration-150"
+                                className="p-2 border border-slate-200 dark:border-slate-800 bg-rose-50 dark:bg-rose-955 bg-slate-900 text-rose-600 hover:bg-rose-500 hover:text-white rounded-xl transition-all active:scale-95"
                                 aria-label="Delete Application"
                               >
                                 <Trash2 className="w-4 h-4" />
@@ -1269,7 +1517,7 @@ export default function Admin() {
                       LOADING COLLABORATOR LOGS...
                     </div>
                   ) : collaborators.length === 0 ? (
-                    <div className="py-12 text-center border-2 border-dashed p-6 font-press text-[9px] text-slate-550 dark:text-slate-450 uppercase">
+                    <div className="py-12 text-center border border-dashed border-slate-250 dark:border-slate-800 p-6 rounded-2xl text-xs text-slate-400">
                       NO COLLABORATOR RECORDS REGISTERED YET
                     </div>
                   ) : (
@@ -1277,27 +1525,27 @@ export default function Admin() {
                       {collaborators.map((collab) => (
                         <div
                           key={collab.id}
-                          className="p-4 border-2 border-slate-950 dark:border-slate-100 bg-white dark:bg-slate-950 shadow-retro-sm flex flex-col gap-3"
+                          className="p-5 border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-[#1c1c1e]/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-300 dark:hover:border-white/10 transition-all duration-150 flex flex-col gap-3.5"
                         >
                           {/* Info Header */}
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-2 border-b border-slate-150 dark:border-slate-800">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-2 border-b border-slate-100 dark:border-white/5">
                             <div>
-                              <span className="font-press text-[10px] uppercase font-bold text-slate-900 dark:text-slate-100">
+                              <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                                 {collab.name}
                               </span>
-                              <span className="font-mono text-[9px] text-slate-400 block sm:inline sm:ml-2">
+                              <span className="text-xs text-slate-400 font-medium block sm:inline sm:ml-2">
                                 ({new Date(collab.timestamp).toLocaleString()})
                               </span>
                             </div>
-                            <span className="font-mono text-[9px] text-slate-500">
+                            <span className="text-xs text-slate-400 font-medium">
                               ID: {collab.id}
                             </span>
                           </div>
 
                           {/* Proposal Body */}
-                          <div className="text-xs">
-                            <span className="font-press text-[7.5px] text-purple-600 dark:text-cyan-400 uppercase font-bold block mb-1">PROPOSAL IDEA:</span>
-                            <p className="font-inter text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 border p-3 whitespace-pre-wrap">
+                          <div className="text-xs text-left">
+                            <span className="text-xs text-[#0071e3] font-semibold block mb-1">PROPOSAL IDEA:</span>
+                            <p className="font-sans text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-white/5 rounded-xl p-3 whitespace-pre-wrap leading-relaxed">
                               {collab.idea}
                             </p>
                           </div>
@@ -1306,10 +1554,10 @@ export default function Admin() {
                           <div className="flex flex-wrap gap-2.5 pt-1.5 justify-end">
                             {/* WA */}
                             <a
-                              href={`https://wa.me/${collab.phone}?text=${encodeURIComponent(`Hi ${collab.name}, thank you for submitting your project proposal to KafeinArts Studio! let's discuss...`)}`}
+                              href={`https://wa.me/${collab.phone}?text=${encodeURIComponent(`Hi ${collab.name}, thank you for submitting your project proposal to Sukamaju Hub! let's discuss...`)}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-3 py-1.5 border-2 border-slate-950 dark:border-slate-100 font-press text-[7.5px] uppercase bg-emerald-500 hover:bg-emerald-400 text-slate-950 flex items-center gap-1.5 shadow-retro-sm"
+                              className="px-4 py-2 border border-slate-205 border-slate-200 dark:border-white/5 text-xs font-semibold rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-1.5 shadow-sm transition-all"
                               onClick={playClick}
                             >
                               <MessageSquare className="w-3.5 h-3.5" />
@@ -1318,8 +1566,8 @@ export default function Admin() {
 
                             {/* Email */}
                             <a
-                              href={`mailto:${collab.email}?subject=KafeinArts Open Collab Proposal&body=Hi ${collab.name}, let's talk about your idea...`}
-                              className="px-3 py-1.5 border-2 border-slate-955 border-slate-950 dark:border-slate-100 font-press text-[7.5px] uppercase bg-indigo-500 hover:bg-indigo-400 text-white flex items-center gap-1.5 shadow-retro-sm"
+                              href={`mailto:${collab.email}?subject=Sukamaju Hub Open Collab Proposal&body=Hi ${collab.name}, let's talk about your idea...`}
+                              className="px-4 py-2 border border-slate-205 border-slate-200 dark:border-white/5 text-xs font-semibold rounded-xl bg-indigo-605 bg-indigo-600 hover:bg-indigo-550 hover:bg-indigo-500 text-white flex items-center gap-1.5 shadow-sm transition-all"
                               onClick={playClick}
                             >
                               <Mail className="w-3.5 h-3.5" />
@@ -1329,7 +1577,7 @@ export default function Admin() {
                             {/* Google Meet scheduling */}
                             <button
                               onClick={() => handleScheduleMeet(collab.name, collab.idea)}
-                              className="px-3 py-1.5 border-2 border-slate-950 dark:border-slate-100 font-press text-[7.5px] uppercase bg-purple-600 hover:bg-purple-500 text-white flex items-center gap-1.5 shadow-retro-sm"
+                              className="px-4 py-2 border border-slate-205 border-slate-200 dark:border-white/5 text-xs font-semibold rounded-xl bg-purple-600 hover:bg-purple-550 text-white flex items-center gap-1.5 shadow-sm transition-all active:scale-95"
                             >
                               <Video className="w-3.5 h-3.5" />
                               Google Meet

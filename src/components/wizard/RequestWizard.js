@@ -112,7 +112,7 @@ export default function RequestWizard() {
           });
 
           // 3. Format WhatsApp redirect text
-          let msg = `*🤝 OPEN COLLABORATION PROPOSAL - KAFEINARTS*\n`;
+          let msg = `*🤝 OPEN COLLABORATION PROPOSAL - SUKAMAJU HUB*\n`;
           msg += `=======================================\n`;
           msg += `Name: ${form.name}\n`;
           msg += `Email: ${form.email}\n`;

@@ -5,28 +5,28 @@ export default function RetroButton({
   children,
   onClick,
   type = 'button',
-  variant = 'purple', // 'purple', 'cyan', 'green', 'gray', 'red', 'yellow'
-  size = 'md', // 'sm', 'md', 'lg'
+  variant = 'purple',
+  size = 'md',
   className = '',
   disabled = false,
   fullWidth = false
 }) {
-  const baseStyles = 'font-press text-xs uppercase select-none transition-all duration-75 active:translate-x-[2px] active:translate-y-[2px] active:shadow-retro-sm border-2 border-slate-950 dark:border-slate-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-none';
+  const baseStyles = 'font-medium text-center select-none transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500';
 
   const variants = {
-    purple: 'bg-purple-600 hover:bg-purple-500 text-white shadow-retro hover:shadow-retro-glow-purple dark:shadow-retro',
-    cyan: 'bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-retro hover:shadow-retro-glow-cyan dark:shadow-retro',
-    green: 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-retro dark:shadow-retro',
-    red: 'bg-rose-500 hover:bg-rose-400 text-white shadow-retro dark:shadow-retro',
-    yellow: 'bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-retro dark:shadow-retro',
-    gray: 'bg-slate-300 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-850 dark:text-slate-200 shadow-retro dark:shadow-retro',
-    outline: 'bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-950 dark:text-slate-100 shadow-retro dark:shadow-retro'
+    purple: 'bg-[#0071e3] hover:bg-[#147ce5] text-white shadow-sm',
+    cyan: 'bg-cyan-500 hover:bg-cyan-600 text-slate-950 hover:text-white shadow-sm',
+    green: 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm',
+    red: 'bg-rose-600 hover:bg-rose-500 text-white shadow-sm',
+    yellow: 'bg-amber-500 hover:bg-amber-400 text-white shadow-sm',
+    gray: 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-white/5',
+    outline: 'bg-transparent border border-slate-300 dark:border-slate-750 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-800 dark:text-slate-200'
   };
 
   const sizes = {
-    sm: 'px-3 py-1.5 text-[9px]',
-    md: 'px-5 py-2.5 text-[10px] tracking-wide',
-    lg: 'px-7 py-3 text-xs tracking-wider'
+    sm: 'px-4 py-2 text-xs rounded-lg',
+    md: 'px-6 py-2.5 text-sm rounded-xl',
+    lg: 'px-8 py-3.5 text-base rounded-2xl'
   };
 
   return (

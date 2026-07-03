@@ -10,25 +10,25 @@ export default function RetroInput({
   onChange,
   required = false,
   error = '',
-  options = [], // For select input
-  rows = 4, // For textarea
+  options = [],
+  rows = 4,
   disabled = false,
   className = ''
 }) {
   const inputClass = cn(
-    "w-full px-4 py-2 text-sm text-slate-900 dark:text-slate-100 transition-all duration-150 font-inter",
-    "border-2 border-slate-950 dark:border-slate-100 shadow-retro-sm focus:outline-none",
+    "w-full px-4 py-3 text-sm text-slate-900 dark:text-[#f5f5f7] transition-all duration-200 font-sans",
+    "border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:border-[#0071e3] focus:ring-4 focus:ring-[#0071e3]/10",
     disabled 
       ? "bg-slate-100 dark:bg-slate-900 opacity-60 cursor-not-allowed" 
-      : "bg-white dark:bg-slate-950 focus:bg-slate-50 dark:focus:bg-slate-900",
+      : "bg-slate-100/50 focus:bg-white dark:bg-[#1c1c1e]/50 dark:focus:bg-[#000000]",
     error ? "border-rose-500 dark:border-rose-400" : ""
   );
 
   return (
     <div className={cn("flex flex-col gap-1.5 w-full", className)}>
       {label && (
-        <label htmlFor={id} className="font-press text-[9px] uppercase tracking-wider text-slate-700 dark:text-slate-300">
-          {label} {required && <span className="text-rose-500 font-inter">*</span>}
+        <label htmlFor={id} className="font-semibold text-xs text-slate-500 dark:text-slate-400">
+          {label} {required && <span className="text-rose-500 font-sans">*</span>}
         </label>
       )}
 
@@ -56,7 +56,7 @@ export default function RetroInput({
           }}
         >
           {options.map((opt) => (
-            <option key={opt.value} value={opt.value} className="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+            <option key={opt.value} value={opt.value} className="bg-white dark:bg-slate-950 text-slate-900 dark:text-[#f5f5f7]">
               {opt.label}
             </option>
           ))}
@@ -75,7 +75,7 @@ export default function RetroInput({
       )}
 
       {error && (
-        <span className="font-press text-[8px] uppercase text-rose-500 dark:text-rose-450 mt-1">
+        <span className="text-xs text-rose-500 mt-1">
           {error}
         </span>
       )}

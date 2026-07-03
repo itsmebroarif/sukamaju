@@ -66,7 +66,7 @@ export default function CartSidebar() {
         });
 
         // Format message
-        let msg = `*🛍️ INVOICE ORDER - KAFEINARTS STUDIO*\n`;
+        let msg = `*🛍️ INVOICE ORDER - SUKAMAJU HUB*\n`;
         msg += `===============================\n`;
         msg += `Language: ${lang.toUpperCase()}\n`;
         msg += `Date: ${new Date().toLocaleDateString()}\n\n`;

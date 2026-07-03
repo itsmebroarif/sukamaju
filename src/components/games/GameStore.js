@@ -21,7 +21,7 @@ export default function GameStore() {
   const [selectedGameForDetails, setSelectedGameForDetails] = useState(null);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   const [expandedGameId, setExpandedGameId] = useState(null);
-  const [activeTabType, setActiveTabType] = useState('all'); // 'all', 'game', 'app'
+  const [activeTabType, setActiveTabType] = useState('app'); // Rebranded: default to 'app' first!
 
   // Parse genres dynamically
   const genres = useMemo(() => {
@@ -68,16 +68,17 @@ export default function GameStore() {
   const handleLaunchGame = (gameTitle, playUrl) => {
     playSuccess();
     
+    const isDark = document.documentElement.classList.contains('dark');
     Swal.fire({
-      title: lang === 'id' ? 'Menjalankan Game...' : lang === 'jp' ? 'ゲームを起動中...' : 'Launching Game...',
-      text: `${gameTitle} ${lang === 'id' ? 'sedang dimuat di sistem.' : lang === 'jp' ? 'がシステムにロードされています。' : 'is loading into systems.'}`,
+      title: lang === 'id' ? 'Menjalankan...' : lang === 'jp' ? '起動中...' : 'Launching...',
+      text: `${gameTitle} ${lang === 'id' ? 'sedang dimuat.' : lang === 'jp' ? 'がロードされています。' : 'is loading.'}`,
       icon: 'success',
       showConfirmButton: false,
       timer: 2000,
-      background: document.documentElement.classList.contains('dark') ? '#0f172a' : '#ffffff',
-      color: document.documentElement.classList.contains('dark') ? '#f1f5f9' : '#0f172a',
+      background: isDark ? '#1c1c1e' : '#ffffff',
+      color: isDark ? '#f5f5f7' : '#1d1d1f',
       customClass: {
-        popup: 'border-4 border-slate-950 font-inter text-sm rounded-none',
+        popup: 'rounded-2xl border border-slate-200 dark:border-white/10 font-sans text-sm shadow-xl',
       }
     }).then(() => {
       const targetUrl = playUrl || 'https://itch.io';
@@ -91,10 +92,10 @@ export default function GameStore() {
         
         {/* Title Header */}
         <div className="text-center flex flex-col items-center gap-2 mb-10">
-          <h1 className="font-press text-lg md:text-xl uppercase tracking-wider text-slate-900 dark:text-slate-50">
+          <h1 className="font-bold text-2xl md:text-3xl tracking-tight text-slate-900 dark:text-slate-50">
             {t.storeTitle}
           </h1>
-          <p className="font-inter text-xs md:text-sm text-slate-650 dark:text-slate-450 max-w-lg mt-2">
+          <p className="font-inter text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-lg mt-2">
             {t.storeSubtitle}
           </p>
         </div>
@@ -102,19 +103,19 @@ export default function GameStore() {
         {/* Category Tabs: ALL / GAMES / APPLICATIONS */}
         <div className="flex flex-wrap justify-center gap-3 mb-8">
           {[
-            { id: 'all', label: t.storeTabAll },
+            { id: 'app', label: t.storeTabApps },
             { id: 'game', label: t.storeTabGames },
-            { id: 'app', label: t.storeTabApps }
+            { id: 'all', label: t.storeTabAll }
           ].map(tab => (
             <button
               key={tab.id}
               type="button"
               onClick={() => { playClick(); setActiveTabType(tab.id); }}
               onMouseEnter={playHover}
-              className={`px-4 py-2 border-2 border-slate-950 dark:border-slate-100 font-press text-[8px] sm:text-[9px] uppercase tracking-wide shadow-retro-sm transition-all duration-100 active:translate-x-[1px] active:translate-y-[1px] ${
+              className={`px-5 py-2 text-xs font-semibold rounded-full tracking-tight transition-all duration-200 active:scale-95 ${
                 activeTabType === tab.id
-                  ? 'bg-purple-600 text-white shadow-none translate-x-[1px] translate-y-[1px]'
-                  : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-205'
+                  ? 'bg-[#0071e3] text-white shadow-sm'
+                  : 'bg-slate-100 dark:bg-[#1c1c1e] text-slate-600 dark:text-slate-300 hover:bg-slate-205 hover:bg-slate-200 dark:hover:bg-slate-800'
               }`}
             >
               {tab.label}
@@ -134,7 +135,7 @@ export default function GameStore() {
               onChange={(e) => setSearch(e.target.value)}
               className="w-full"
             />
-            <div className="absolute right-3.5 bottom-2.5 text-slate-400">
+            <div className="absolute right-3.5 bottom-3.5 text-slate-400">
               <Search className="w-4 h-4" />
             </div>
           </div>
@@ -178,7 +179,11 @@ export default function GameStore() {
               type="button"
               onClick={() => { playClick(); setViewMode('grid'); }}
               onMouseEnter={playHover}
-              className={`p-2.5 border-2 border-slate-950 dark:border-slate-100 shadow-retro-sm active:translate-x-[1px] active:translate-y-[1px] ${viewMode === 'grid' ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-205'}`}
+              className={`p-2.5 border rounded-xl transition-all active:scale-95 ${
+                viewMode === 'grid' 
+                  ? 'bg-[#0071e3] border-[#0071e3] text-white shadow-sm' 
+                  : 'bg-slate-100 dark:bg-[#1c1c1e] border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400'
+              }`}
               title={t.storeViewGrid}
             >
               <LayoutGrid className="w-4 h-4" />
@@ -187,7 +192,11 @@ export default function GameStore() {
               type="button"
               onClick={() => { playClick(); setViewMode('list'); }}
               onMouseEnter={playHover}
-              className={`p-2.5 border-2 border-slate-950 dark:border-slate-100 shadow-retro-sm active:translate-x-[1px] active:translate-y-[1px] ${viewMode === 'list' ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-205'}`}
+              className={`p-2.5 border rounded-xl transition-all active:scale-95 ${
+                viewMode === 'list' 
+                  ? 'bg-[#0071e3] border-[#0071e3] text-white shadow-sm' 
+                  : 'bg-slate-100 dark:bg-[#1c1c1e] border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400'
+              }`}
               title={t.storeViewList}
             >
               <List className="w-4 h-4" />
@@ -198,9 +207,9 @@ export default function GameStore() {
 
         {/* Games Catalog Grid */}
         {filteredGames.length === 0 ? (
-          <div className="py-20 text-center border-4 border-dashed border-slate-300 dark:border-slate-800 p-8">
-            <div className="font-press text-sm text-slate-500 uppercase">
-              NO GAMES DETECTED IN ARCHIVE
+          <div className="py-20 text-center border border-dashed border-slate-300 dark:border-slate-800 rounded-3xl p-8 bg-slate-50/50 dark:bg-[#1c1c1e]/10">
+            <div className="font-semibold text-slate-500 text-base">
+              NO PRODUCTS DETECTED IN ARCHIVE
             </div>
             <p className="font-inter text-xs text-slate-400 mt-2">
               Try adjusting your filters or search inputs.
@@ -217,22 +226,22 @@ export default function GameStore() {
                   key={game.id}
                   variant="default"
                   hoverEffect
-                  className="flex flex-col justify-between h-full bg-white dark:bg-slate-950"
+                  className="flex flex-col justify-between h-full bg-white dark:bg-[#1c1c1e]/60"
                 >
                   <div>
                     {/* Thumbnail */}
-                    <div className="relative border-4 border-slate-950 dark:border-slate-100 bg-slate-900 aspect-video overflow-hidden mb-4">
+                    <div className="relative border border-slate-200/50 dark:border-white/5 bg-slate-900 aspect-video rounded-2xl overflow-hidden mb-4">
                       <img
                         src={game.image}
                         alt={title}
                         className="w-full h-full object-cover transition-transform duration-350 hover:scale-105"
                       />
                       {/* Genre badge */}
-                      <span className="absolute top-2 left-2 px-2 py-0.5 border-2 border-slate-950 dark:border-slate-100 bg-purple-600 text-white font-press text-[7px] uppercase shadow-retro-sm">
+                      <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#0071e3]/90 backdrop-blur-md text-white text-[10px] font-semibold rounded-full shadow-sm">
                         {game.genre}
                       </span>
                       {/* Type badge */}
-                      <span className="absolute top-2 right-2 px-2 py-0.5 border-2 border-slate-950 dark:border-slate-100 bg-emerald-555 bg-emerald-500 text-slate-950 font-press text-[7px] uppercase shadow-retro-sm font-bold">
+                      <span className="absolute top-3 right-3 px-2.5 py-1 bg-emerald-600/90 backdrop-blur-md text-white text-[10px] font-semibold rounded-full shadow-sm">
                         {game.type === 'app' ? t.itemApp : t.itemGame}
                       </span>
                     </div>
@@ -240,16 +249,16 @@ export default function GameStore() {
                     {/* Meta info */}
                     <div className="text-left mb-6">
                       <div className="flex justify-between items-start mb-2 gap-2">
-                        <h3 className="font-press text-[10px] md:text-[11px] uppercase tracking-wide leading-relaxed truncate max-w-[80%] text-slate-900 dark:text-slate-100">
+                        <h3 className="font-semibold text-base tracking-tight truncate max-w-[80%] text-slate-900 dark:text-slate-100">
                           {title}
                         </h3>
-                        <span className="font-press text-[9px] text-yellow-500 flex items-center gap-1 select-none whitespace-nowrap">
-                          <Star className="w-3.5 h-3.5 fill-current" />
+                        <span className="text-xs text-amber-500 font-semibold flex items-center gap-1 select-none whitespace-nowrap">
+                          <Star className="w-3.5 h-3.5 fill-current text-amber-400" />
                           {game.rating}
                         </span>
                       </div>
                       
-                      <p className="font-inter text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed mt-1">
+                      <p className="font-inter text-xs text-slate-500 dark:text-slate-400 line-clamp-3 leading-relaxed mt-1">
                         {description}
                       </p>
                       
@@ -261,17 +270,17 @@ export default function GameStore() {
                             setSelectedGameForDetails(game);
                           }}
                           onMouseEnter={playHover}
-                          className="text-[9px] font-press text-purple-650 dark:text-cyan-400 hover:underline transition-colors cursor-pointer focus:outline-none"
+                          className="text-xs font-semibold text-[#0071e3] dark:text-[#2997ff] hover:underline transition-colors focus:outline-none"
                         >
-                          [ {t.storeViewDetails} ]
+                          {t.storeViewDetails}
                         </button>
                       </div>
 
-                      <div className="flex items-center justify-between mt-5 pt-3 border-t-2 border-slate-100 dark:border-slate-900">
-                        <span className="font-press text-[8px] border-2 border-slate-950 dark:border-slate-100 px-2 py-0.5 bg-emerald-500 text-slate-950 font-bold shadow-retro-sm">
+                      <div className="flex items-center justify-between mt-5 pt-3 border-t border-slate-100 dark:border-slate-800">
+                        <span className="text-[10px] bg-emerald-600/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 px-2.5 py-0.5 rounded-full font-semibold">
                           {t.storePriceFree}
                         </span>
-                        <span className="font-press text-[8px] text-slate-400">
+                        <span className="text-xs text-slate-400 font-medium">
                           {game.releaseYear}
                         </span>
                       </div>
@@ -312,53 +321,53 @@ export default function GameStore() {
                       setExpandedGameId(isExpanded ? null : game.id);
                     }}
                     onMouseEnter={playHover}
-                    className={`border-4 border-slate-950 dark:border-slate-100 bg-white dark:bg-slate-950 p-4 flex flex-col sm:flex-row sm:items-center justify-between cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors shadow-retro select-none gap-3 ${
-                      isExpanded ? 'border-b-4' : ''
+                    className={`border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-[#1c1c1e]/60 backdrop-blur-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-900/40 transition-all duration-200 select-none gap-3 ${
+                      isExpanded ? 'rounded-t-2xl border-b-0' : 'rounded-2xl'
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <h3 className="font-press text-[10px] md:text-[11px] uppercase tracking-wide text-slate-900 dark:text-slate-100">
+                      <h3 className="font-semibold text-sm md:text-base tracking-tight text-slate-900 dark:text-slate-100">
                         {title}
                       </h3>
-                      <span className="font-press text-[7px] border-2 border-slate-950 dark:border-slate-100 px-2 py-0.5 bg-purple-600 text-white shadow-retro-sm uppercase">
+                      <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-805 dark:bg-slate-800 text-slate-700 dark:text-slate-350 border border-slate-200/50 dark:border-white/5">
                         {game.platform || 'PC'}
                       </span>
-                      <span className="font-press text-[7px] border-2 border-slate-950 dark:border-slate-100 px-2 py-0.5 bg-emerald-500 text-slate-955 text-slate-950 shadow-retro-sm uppercase font-bold">
+                      <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-600/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400">
                         {game.type === 'app' ? t.itemApp : t.itemGame}
                       </span>
                     </div>
 
                     <div className="flex items-center justify-between sm:justify-end gap-6">
-                      <span className="font-press text-[8px] text-slate-400 dark:text-slate-500 uppercase hidden md:inline">
+                      <span className="text-xs text-slate-500 dark:text-slate-400 font-medium hidden md:inline">
                         {game.genre}
                       </span>
-                      <span className="font-press text-[9px] text-yellow-500 flex items-center gap-1 select-none whitespace-nowrap">
-                        <Star className="w-3.5 h-3.5 fill-current" />
+                      <span className="text-xs text-amber-500 font-semibold flex items-center gap-1 select-none whitespace-nowrap">
+                        <Star className="w-3.5 h-3.5 fill-current text-amber-400" />
                         {game.rating}
                       </span>
-                      <span className="font-press text-[9px] text-slate-900 dark:text-slate-100 font-bold select-none">
-                        {isExpanded ? '[-]' : '[+]'}
+                      <span className="text-xs font-semibold text-[#0071e3] dark:text-[#2997ff] select-none w-6 text-center">
+                        {isExpanded ? 'Collapse' : 'Detail'}
                       </span>
                     </div>
                   </div>
 
                   {/* Accordion Content (Inline Details Panel) */}
                   {isExpanded && (
-                    <div className="border-4 border-t-0 border-slate-950 dark:border-slate-100 p-5 bg-slate-50 dark:bg-slate-900/50 shadow-retro flex flex-col md:flex-row gap-6 animate-in slide-in-from-top-4 duration-200">
+                    <div className="border border-slate-200 dark:border-white/10 border-t-0 p-6 bg-slate-50/50 dark:bg-[#1c1c1e]/30 backdrop-blur-xl rounded-b-2xl flex flex-col md:flex-row gap-6 shadow-sm animate-fade-in">
                       
                       {/* Media Block (Video / Image) */}
                       <div className="flex-1 md:max-w-md w-full">
                         {game.videoUrl ? (
-                          <div className="border-4 border-slate-950 dark:border-slate-100 bg-black overflow-hidden shadow-retro-sm">
+                          <div className="border border-slate-200/60 dark:border-white/5 rounded-2xl bg-black overflow-hidden shadow-sm aspect-video">
                             <video
                               src={game.videoUrl}
                               controls
-                              className="w-full aspect-video object-contain"
+                              className="w-full h-full object-contain"
                               playsInline
                             />
                           </div>
                         ) : (
-                          <div className="border-4 border-slate-950 dark:border-slate-100 bg-slate-900 aspect-video overflow-hidden shadow-retro-sm">
+                          <div className="border border-slate-200/60 dark:border-white/5 rounded-2xl bg-slate-900 aspect-video overflow-hidden shadow-sm">
                             <img
                               src={game.image}
                               alt={title}
@@ -373,13 +382,13 @@ export default function GameStore() {
                         <div>
                           {/* Specs Badge list */}
                           <div className="flex flex-wrap gap-2 mb-3.5">
-                            <span className="font-press text-[7px] border-2 border-slate-950 dark:border-slate-100 px-2 py-0.5 bg-emerald-500 text-slate-950 font-bold shadow-retro-sm">
+                            <span className="text-[10px] font-semibold bg-emerald-600/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 px-2.5 py-0.5 rounded-full">
                               {t.storePriceFree}
                             </span>
-                            <span className="font-press text-[7px] border-2 border-slate-950 dark:border-slate-100 px-2 py-0.5 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 shadow-retro-sm">
+                            <span className="text-[10px] font-semibold bg-slate-100 text-slate-600 dark:bg-slate-805 dark:bg-slate-800 dark:text-slate-300 px-2.5 py-0.5 rounded-full">
                               {game.releaseYear}
                             </span>
-                            <span className="font-press text-[7px] border-2 border-slate-950 dark:border-slate-100 px-2 py-0.5 bg-cyan-500 text-slate-950 shadow-retro-sm">
+                            <span className="text-[10px] font-semibold bg-[#0071e3]/10 text-[#0071e3] dark:bg-[#2997ff]/20 dark:text-[#2997ff] px-2.5 py-0.5 rounded-full">
                               {game.genre}
                             </span>
                           </div>

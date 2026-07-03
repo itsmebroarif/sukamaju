@@ -56,19 +56,21 @@ export default function Navbar() {
   return (
     <>
       {/* Desktop Navigation Header */}
-      <nav className="hidden lg:block sticky top-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur border-b-4 border-slate-950 dark:border-slate-100 py-3 px-4 md:px-8 transition-colors duration-200">
+      <nav className="hidden lg:block sticky top-0 z-50 bg-white/80 dark:bg-black/60 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/10 py-3 px-4 md:px-8 transition-colors duration-200">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo */}
           <div
             onClick={() => handleNavClick("home")}
             onMouseEnter={playHover}
-            className="flex items-center gap-2.5 cursor-pointer select-none group"
+            className="flex items-center gap-2 cursor-pointer select-none group"
           >
-            <div className="w-8 h-8 bg-purple-600 border-2 border-slate-950 dark:border-slate-100 flex items-center justify-center font-undertale text-white text-base shadow-retro-sm group-hover:bg-purple-500 transition-colors">
-              K
-            </div>
-            <span className="font-undertale text-base md:text-lg tracking-widest text-slate-950 dark:text-white font-bold transition-all duration-200">
-              KAFEINARTS
+            <img 
+              src="/icon.png" 
+              alt="Sukamaju Hub Logo" 
+              className="w-8 h-8 object-contain rounded-lg group-hover:scale-105 transition-transform duration-200" 
+            />
+            <span className="font-semibold text-base md:text-lg tracking-tight text-slate-900 dark:text-white font-bold transition-all duration-200">
+              SUKAMAJU HUB
             </span>
           </div>
 
@@ -79,13 +81,16 @@ export default function Navbar() {
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
                 onMouseEnter={playHover}
-                className={`font-press text-[9px] uppercase tracking-wider transition-colors duration-150 ${
+                className={`text-xs font-semibold tracking-tight transition-colors duration-150 relative py-1.5 px-1 ${
                   page === link.id
-                    ? "text-purple-600 dark:text-cyan-400 underline decoration-2 underline-offset-4"
-                    : "text-slate-650 hover:text-slate-900 dark:text-slate-350 dark:hover:text-slate-100"
+                    ? "text-[#0071e3] dark:text-[#2997ff]"
+                    : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
                 }`}
               >
                 {link.label}
+                {page === link.id && (
+                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#0071e3] dark:bg-[#2997ff] rounded-full" />
+                )}
               </button>
             ))}
           </div>
@@ -96,7 +101,7 @@ export default function Navbar() {
             <button
               onClick={handleThemeToggle}
               onMouseEnter={playHover}
-              className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-slate-50 dark:bg-slate-900 shadow-retro-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+              className="p-2 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#1c1c1e] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg active:scale-95 transition-all"
               aria-label="Toggle Theme"
             >
               {theme === "dark" ? (
@@ -111,22 +116,22 @@ export default function Navbar() {
               <button
                 onClick={handleLangToggle}
                 onMouseEnter={playHover}
-                className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-slate-50 dark:bg-slate-900 shadow-retro-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none flex items-center gap-1 font-press text-[9px]"
+                className="p-2 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#1c1c1e] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg active:scale-95 transition-all flex items-center gap-1 text-xs font-medium"
               >
-                <Globe className="w-4 h-4 text-slate-800 dark:text-slate-100" />
+                <Globe className="w-4 h-4 text-slate-855 text-slate-800 dark:text-slate-100" />
                 <span className="hidden sm:inline uppercase">{lang}</span>
               </button>
 
               {langMenuOpen && (
-                <div className="absolute right-0 mt-2 bg-white dark:bg-slate-950 border-2 border-slate-950 dark:border-slate-100 py-1 shadow-retro z-50 w-24">
+                <div className="absolute right-0 mt-2 bg-white/90 dark:bg-black/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 py-1 rounded-xl shadow-lg z-50 w-24 overflow-hidden">
                   {["en", "id", "jp"].map((l) => (
                     <button
                       key={l}
                       onClick={() => selectLanguage(l)}
                       onMouseEnter={playHover}
-                      className={`w-full text-left px-3 py-1.5 font-press text-[9px] uppercase hover:bg-slate-100 dark:hover:bg-slate-900 ${
+                      className={`w-full text-left px-3 py-1.5 text-xs font-medium uppercase hover:bg-slate-100 dark:hover:bg-slate-900 ${
                         lang === l
-                          ? "text-purple-600 dark:text-cyan-400 font-bold"
+                          ? "text-[#0071e3] dark:text-[#2997ff] font-bold"
                           : "text-slate-700 dark:text-slate-350"
                       }`}
                     >
@@ -161,7 +166,7 @@ export default function Navbar() {
         <button
           onClick={handleThemeToggle}
           onMouseEnter={playHover}
-          className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-white/95 dark:bg-slate-950/95 shadow-retro-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-colors duration-200"
+          className="p-2 border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#1c1c1e]/85 backdrop-blur-md rounded-lg active:scale-95 shadow-sm transition-all"
           aria-label="Toggle Theme"
         >
           {theme === "dark" ? (
@@ -176,22 +181,22 @@ export default function Navbar() {
           <button
             onClick={handleLangToggle}
             onMouseEnter={playHover}
-            className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-white/95 dark:bg-slate-950/95 shadow-retro-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none flex items-center gap-1 font-press text-[9px]"
+            className="p-2 border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#1c1c1e]/85 backdrop-blur-md rounded-lg active:scale-95 shadow-sm transition-all flex items-center gap-1 text-[10px] font-medium"
           >
             <Globe className="w-4 h-4 text-slate-800 dark:text-slate-100" />
-            <span className="uppercase text-[8px]">{lang}</span>
+            <span className="uppercase">{lang}</span>
           </button>
 
           {langMenuOpen && (
-            <div className="absolute right-0 mt-2 bg-white dark:bg-slate-950 border-2 border-slate-950 dark:border-slate-100 py-1 shadow-retro z-50 w-24">
+            <div className="absolute right-0 mt-2 bg-white/90 dark:bg-black/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 py-1 rounded-xl shadow-lg z-50 w-24 overflow-hidden">
               {["en", "id", "jp"].map((l) => (
                 <button
                   key={l}
                   onClick={() => selectLanguage(l)}
                   onMouseEnter={playHover}
-                  className={`w-full text-left px-3 py-1.5 font-press text-[9px] uppercase hover:bg-slate-100 dark:hover:bg-slate-900 ${
+                  className={`w-full text-left px-3 py-1.5 text-xs font-medium uppercase hover:bg-slate-100 dark:hover:bg-slate-900 ${
                     lang === l
-                      ? "text-purple-600 dark:text-cyan-400 font-bold"
+                      ? "text-[#0071e3] dark:text-[#2997ff] font-bold"
                       : "text-slate-700 dark:text-slate-350"
                   }`}
                 >
@@ -203,8 +208,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Bottom Navigation Bar (Instagram / Play Store Style) */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 h-16 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur border-t border-slate-200 dark:border-slate-800 flex items-center justify-around px-1 shadow-[0_-4px_12px_rgba(0,0,0,0.08)] select-none">
+      {/* Mobile Floating iOS-style Dock Navigation Bar */}
+      <div className="lg:hidden fixed bottom-4 left-4 right-4 h-16 z-50 bg-white/85 dark:bg-[#1c1c1e]/70 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 flex items-center justify-around px-2 shadow-lg rounded-3xl select-none">
         {navLinks.map((link) => {
           const isActive = page === link.id;
           return (
@@ -214,28 +219,28 @@ export default function Navbar() {
               onMouseEnter={playHover}
               className={`flex-1 flex flex-col items-center justify-center py-1 transition-colors duration-150 ${
                 isActive
-                  ? "text-purple-600 dark:text-cyan-400 font-bold"
-                  : "text-slate-550 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                  ? "text-[#0071e3] dark:text-[#2997ff] font-semibold"
+                  : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-205"
               }`}
             >
-              {/* Play Store active pill background container */}
+              {/* iOS active circle indicator container */}
               <div
-                className={`px-4 py-1 rounded-full flex items-center justify-center transition-all duration-200 ${
+                className={`px-3.5 py-1.5 rounded-2xl flex items-center justify-center transition-all duration-200 ${
                   isActive
-                    ? "bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-cyan-400 scale-105"
+                    ? "bg-[#0071e3]/10 dark:bg-[#2997ff]/10 text-[#0071e3] dark:text-[#2997ff] scale-105"
                     : "bg-transparent text-slate-500 dark:text-slate-400"
                 }`}
               >
                 {link.icon}
               </div>
               <span
-                className={`font-press text-[7px] mt-1 uppercase tracking-tighter transition-all ${
+                className={`text-[8px] mt-0.5 font-medium transition-all ${
                   isActive
-                    ? "text-purple-600 dark:text-cyan-400 font-bold scale-105"
-                    : "text-slate-500 dark:text-slate-450"
+                    ? "text-[#0071e3] dark:text-[#2997ff] font-bold"
+                    : "text-slate-500 dark:text-slate-400"
                 }`}
               >
-                {link.label}
+                {link.label.split(' ')[0]} {/* Keep it single word for mobile dock */}
               </span>
             </button>
           );
@@ -247,12 +252,12 @@ export default function Navbar() {
             openWizard("game");
           }}
           onMouseEnter={playHover}
-          className="flex-1 flex flex-col items-center justify-center py-1 text-slate-555 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-250"
+          className="flex-1 flex flex-col items-center justify-center py-1 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
         >
-          <div className="px-4 py-1 rounded-full flex items-center justify-center bg-transparent text-slate-500 dark:text-slate-400">
-            <Sparkles className="w-5 h-5 text-purple-650 dark:text-cyan-455 text-purple-600 dark:text-cyan-400" />
+          <div className="px-3.5 py-1.5 rounded-2xl flex items-center justify-center bg-transparent text-slate-500 dark:text-slate-400">
+            <Sparkles className="w-5 h-5 text-[#0071e3] dark:text-[#2997ff]" />
           </div>
-          <span className="font-press text-[7px] mt-1 uppercase tracking-tighter text-slate-500 dark:text-slate-450">
+          <span className="text-[8px] mt-0.5 font-medium text-slate-500 dark:text-slate-400">
             Collab
           </span>
         </button>

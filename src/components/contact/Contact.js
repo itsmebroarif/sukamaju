@@ -80,7 +80,7 @@ export default function Contact() {
           });
 
           // Format message
-          let msg = `*📩 TRANSMISSION MESSAGE - KAFEINARTS STUDIO*\n`;
+          let msg = `*📩 TRANSMISSION MESSAGE - SUKAMAJU HUB*\n`;
           msg += `=======================================\n`;
           msg += `Name: ${form.name}\n`;
           msg += `Email: ${form.email}\n`;
@@ -131,13 +131,12 @@ export default function Contact() {
   return (
     <section className="py-12 md:py-16 px-4 md:px-8 transition-colors duration-200">
       <div className="max-w-7xl mx-auto">
-        
-        {/* Title Header */}
+              {/* Title Header */}
         <div className="text-center flex flex-col items-center gap-2 mb-10">
-          <h1 className="font-press text-lg md:text-xl uppercase tracking-wider text-slate-900 dark:text-slate-50">
+          <h1 className="font-bold text-2xl md:text-3xl tracking-tight text-slate-900 dark:text-slate-50">
             {t.contactTitle}
           </h1>
-          <p className="font-inter text-xs md:text-sm text-slate-650 dark:text-slate-450 max-w-lg mt-2">
+          <p className="font-inter text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-lg mt-2">
             {t.contactSubtitle}
           </p>
         </div>
@@ -146,31 +145,31 @@ export default function Contact() {
           
           {/* Left Panel: Direct Links */}
           <div className="lg:col-span-4 flex flex-col gap-6">
-            <RetroCard variant="default" title="TRANSMISSION_CHANNELS">
+            <RetroCard variant="default" title="TRANSMISSION CHANNELS">
               <div className="flex flex-col gap-4 mt-2">
                 
                 <a
                   href="https://wa.me/6285817048266"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 border-2 border-slate-950 dark:border-slate-100 hover:bg-emerald-50 dark:hover:bg-emerald-950/20 transition-colors duration-150 group font-press text-[9px] uppercase"
+                  className="flex items-center gap-3 p-3.5 border border-slate-200 dark:border-slate-800 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/10 transition-colors duration-150 group font-sans text-xs font-semibold rounded-2xl"
                 >
-                  <div className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-emerald-500 text-slate-950 shadow-retro-sm group-hover:scale-105 transition-transform duration-100">
+                  <div className="p-2 border border-slate-200 dark:border-slate-800 bg-emerald-600 text-white rounded-xl group-hover:scale-105 transition-transform duration-100">
                     <MessageSquare className="w-4 h-4" />
                   </div>
                   <div className="text-left">
-                    <span className="block font-bold">WhatsApp Direct</span>
-                    <span className="text-[7px] text-slate-400 font-inter font-normal lowercase">+62 858 1704 8266</span>
+                    <span className="block font-bold text-slate-800 dark:text-slate-200">WhatsApp Direct</span>
+                    <span className="text-[10px] text-slate-400 font-inter font-normal lowercase">+62 858 1704 8266</span>
                   </div>
                 </a>
 
                 <a
-                  href="https://www.instagram.com/kafeinarts.studio/"
+                  href="https://www.instagram.com/sukamajuhub.studio/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 border-2 border-slate-950 dark:border-slate-100 hover:bg-purple-50 dark:hover:bg-purple-950/20 transition-colors duration-150 group font-press text-[9px] uppercase"
+                  className="flex items-center gap-3 p-3.5 border border-slate-200 dark:border-slate-800 hover:bg-purple-50/50 dark:hover:bg-purple-950/10 transition-colors duration-150 group font-sans text-xs font-semibold rounded-2xl"
                 >
-                  <div className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-purple-600 text-white shadow-retro-sm group-hover:scale-105 transition-transform duration-100">
+                  <div className="p-2 border border-slate-200 dark:border-slate-800 bg-purple-600 text-white rounded-xl group-hover:scale-105 transition-transform duration-100">
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                       <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
@@ -178,18 +177,18 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div className="text-left">
-                    <span className="block font-bold">Instagram Feed</span>
-                    <span className="text-[7px] text-slate-400 font-inter font-normal lowercase">@kafeinarts.studio</span>
+                    <span className="block font-bold text-slate-800 dark:text-slate-200">Instagram Feed</span>
+                    <span className="text-[10px] text-slate-400 font-inter font-normal lowercase">@sukamajuhub.studio</span>
                   </div>
                 </a>
 
-                <div className="flex items-center gap-3 p-3 border-2 border-slate-950 dark:border-slate-100 hover:bg-indigo-50 dark:hover:bg-indigo-950/20 transition-colors duration-150 group font-press text-[9px] uppercase">
-                  <div className="p-2 border-2 border-slate-950 dark:border-slate-100 bg-indigo-500 text-white shadow-retro-sm group-hover:scale-105 transition-transform duration-100">
+                <div className="flex items-center gap-3 p-3.5 border border-slate-200 dark:border-slate-800 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/10 transition-colors duration-150 group font-sans text-xs font-semibold rounded-2xl">
+                  <div className="p-2 border border-slate-200 dark:border-slate-800 bg-indigo-500 text-white rounded-xl group-hover:scale-105 transition-transform duration-100">
                     <Disc className="w-4 h-4" />
                   </div>
                   <div className="text-left">
-                    <span className="block font-bold">Discord Server</span>
-                    <span className="text-[7px] text-slate-400 font-inter font-normal lowercase">itsmebroarif</span>
+                    <span className="block font-bold text-slate-800 dark:text-slate-200">Discord Server</span>
+                    <span className="text-[10px] text-slate-400 font-inter font-normal lowercase">itsmebroarif</span>
                   </div>
                 </div>
 
@@ -199,7 +198,7 @@ export default function Contact() {
 
           {/* Right Panel: Contact Form */}
           <div className="lg:col-span-8">
-            <RetroCard variant="default" title="ENCRYPTED_MESSAGE_FORM">
+            <RetroCard variant="default" title="MESSAGE FORM">
               <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-2">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <RetroInput
