@@ -81,7 +81,7 @@ export default function Admin() {
   // Github form configs
   const [gitConfig, setGitConfig] = useState({
     owner: githubOwner || 'itsmebroarif',
-    repo: githubRepo || 'kafeinarts-studio',
+    repo: githubRepo || 'sukamaju',
     branch: githubBranch || 'main',
     path: githubPath || 'src/data/games.json',
     token: githubToken || ''
@@ -91,7 +91,7 @@ export default function Admin() {
   useEffect(() => {
     setGitConfig({
       owner: githubOwner || 'itsmebroarif',
-      repo: githubRepo || 'kafeinarts-studio',
+      repo: githubRepo || 'sukamaju',
       branch: githubBranch || 'main',
       path: githubPath || 'src/data/games.json',
       token: githubToken || ''

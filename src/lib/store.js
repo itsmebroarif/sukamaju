@@ -133,7 +133,7 @@ export const useAdminStore = create(
     (set) => ({
       unlocked: false,
       githubOwner: 'itsmebroarif',
-      githubRepo: 'kafeinarts-studio',
+      githubRepo: 'sukamaju',
       githubBranch: 'main',
       githubPath: 'src/data/games.json',
       githubToken: '',
