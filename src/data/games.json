@@ -90,5 +90,28 @@
     "videoUrl": "",
     "platform": "PC",
     "type": "game"
+  },
+  {
+    "id": "game-1784702382583",
+    "title": {
+      "en": "Omnia",
+      "id": "Omnia",
+      "jp": "Omnia"
+    },
+    "description": {
+      "en": "Deliver an all-in-one productivity ecosystem that seamlessly integrates advanced task management, note-taking, habit tracking, personal finance management, and client invoicing into a single application that runs entirely offline, with no dependency on cloud services, internet connectivity, or backend infrastructure.",
+      "id": "Membangun ekosistem produktivitas all-in-one yang mengintegrasikan manajemen tugas, pencatatan, pelacakan kebiasaan, pengelolaan keuangan, serta sistem penagihan klien dalam satu aplikasi yang sepenuhnya berjalan secara offline, tanpa ketergantungan pada layanan cloud, koneksi internet, maupun server backend.",
+      "jp": "高度なタスク管理、ノート作成、習慣トラッキング、個人財務管理、クライアント請求管理をシームレスに統合し、クラウドサービスやインターネット接続、バックエンドインフラに依存することなく、完全にオフラインで動作するオールインワンの生産性エコシステムを提供します。"
+    },
+    "price": 0,
+    "genre": "SaaS / Utility",
+    "rating": 5,
+    "releaseYear": 2026,
+    "image": "/images/games/Omnia.png",
+    "featured": false,
+    "playUrl": "https://drive.google.com/file/d/1rWKx49e1Arf6MXb6yrU0Rw8VooIcWpgM/view?usp=sharing",
+    "videoUrl": "",
+    "platform": "Android",
+    "type": "app"
   }
 ]
